@@ -4,7 +4,7 @@
 ### Installing software
 1. Install Visual Studio 2019 Community from https://visualstudio.microsoft.com/downloads/
 2. Install SQL Server Express from https://www.microsoft.com/nb-no/sql-server/sql-server-downloads
-  * Write down your connection string when the installation is done
+    * Write down your connection string when the installation is done
 3. Install SQL Server Management Studio (SSMS) from https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms
 
 ### Setting up
