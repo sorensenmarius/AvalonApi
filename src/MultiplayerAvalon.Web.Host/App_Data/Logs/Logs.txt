@@ -1,0 +1,431 @@
+DEBUG 2020-05-30 18:41:15,370 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2020-05-30 18:41:16,156 [1    ] Abp.Modules.AbpModuleManager             - Found 15 ABP modules in total.
+DEBUG 2020-05-30 18:41:16,195 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: MultiplayerAvalon.Web.Host.Startup.MultiplayerAvalonWebHostModule, MultiplayerAvalon.Web.Host, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,199 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: MultiplayerAvalon.MultiplayerAvalonWebCoreModule, MultiplayerAvalon.Web.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,200 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: MultiplayerAvalon.MultiplayerAvalonApplicationModule, MultiplayerAvalon.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,200 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: MultiplayerAvalon.MultiplayerAvalonCoreModule, MultiplayerAvalon.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,201 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCoreModule, Abp.ZeroCore, Version=5.6.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,201 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCommonModule, Abp.Zero.Common, Version=5.6.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,201 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=5.6.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,202 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AutoMapper.AbpAutoMapperModule, Abp.AutoMapper, Version=5.6.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,202 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: MultiplayerAvalon.EntityFrameworkCore.MultiplayerAvalonEntityFrameworkModule, MultiplayerAvalon.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,203 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.EntityFrameworkCore.AbpZeroCoreEntityFrameworkCoreModule, Abp.ZeroCore.EntityFrameworkCore, Version=5.6.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,203 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule, Abp.EntityFrameworkCore, Version=5.6.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,204 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkCommonModule, Abp.EntityFramework.Common, Version=5.6.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,204 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AspNetCore.AbpAspNetCoreModule, Abp.AspNetCore, Version=5.6.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,205 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.AbpWebCommonModule, Abp.Web.Common, Version=5.6.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,205 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule, Abp.AspNetCore.SignalR, Version=5.6.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:16,209 [1    ] Abp.Modules.AbpModuleManager             - 15 modules loaded.
+DEBUG 2020-05-30 18:41:16,510 [1    ] o.Configuration.LanguageManagementConfig - Converted Abp (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2020-05-30 18:41:16,510 [1    ] o.Configuration.LanguageManagementConfig - Converted AbpZero (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2020-05-30 18:41:16,510 [1    ] o.Configuration.LanguageManagementConfig - Converted MultiplayerAvalon (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2020-05-30 18:41:16,510 [1    ] o.Configuration.LanguageManagementConfig - Converted AbpWeb (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2020-05-30 18:41:17,457 [1    ] ameworkCore.AbpEntityFrameworkCoreModule - Registering DbContext: MultiplayerAvalon.EntityFrameworkCore.MultiplayerAvalonDbContext, MultiplayerAvalon.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-05-30 18:41:18,900 [1    ] Abp.Localization.LocalizationManager     - Initializing 4 localization sources.
+DEBUG 2020-05-30 18:41:18,936 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Abp
+DEBUG 2020-05-30 18:41:18,948 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: AbpZero
+DEBUG 2020-05-30 18:41:18,955 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: MultiplayerAvalon
+DEBUG 2020-05-30 18:41:18,961 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: AbpWeb
+DEBUG 2020-05-30 18:41:19,185 [1    ] Abp.BackgroundJobs.BackgroundJobManager  - Start background worker: Castle.Proxies.BackgroundJobManagerProxy
+DEBUG 2020-05-30 18:41:19,377 [1    ] , Culture=neutral, PublicKeyToken=null]] - Start background worker: Abp.Authorization.Users.UserTokenExpirationWorker`2[[MultiplayerAvalon.MultiTenancy.Tenant, MultiplayerAvalon.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[MultiplayerAvalon.Authorization.Users.User, MultiplayerAvalon.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+DEBUG 2020-05-30 18:41:19,445 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Found 8 classes define auto mapping attributes
+DEBUG 2020-05-30 18:41:19,446 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - MultiplayerAvalon.Models.TokenAuth.ExternalLoginProviderInfoModel
+DEBUG 2020-05-30 18:41:19,451 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - MultiplayerAvalon.Users.Dto.CreateUserDto
+DEBUG 2020-05-30 18:41:19,452 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - MultiplayerAvalon.Users.Dto.UserDto
+DEBUG 2020-05-30 18:41:19,452 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - MultiplayerAvalon.Sessions.Dto.TenantLoginInfoDto
+DEBUG 2020-05-30 18:41:19,452 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - MultiplayerAvalon.Sessions.Dto.UserLoginInfoDto
+DEBUG 2020-05-30 18:41:19,452 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - MultiplayerAvalon.Roles.Dto.PermissionDto
+DEBUG 2020-05-30 18:41:19,453 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - MultiplayerAvalon.MultiTenancy.Dto.CreateTenantDto
+DEBUG 2020-05-30 18:41:19,453 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - MultiplayerAvalon.MultiTenancy.Dto.TenantDto
+INFO  2020-05-30 18:41:26,323 [1    ] tCore.Builder.RequestLocalizationOptions - Supported Request Localization Cultures: en,es-MX,fr,de,it,nl,pt-BR,tr,ru,ar,ja,zh-Hans
+INFO  2020-05-30 18:41:27,092 [1    ] taProtection.KeyManagement.XmlKeyManager - User profile is available. Using 'C:\Users\mariu\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+INFO  2020-05-30 18:41:27,119 [1    ] taProtection.KeyManagement.XmlKeyManager - Creating key {9903689b-d11c-4c9f-9ebd-69faaa1a53f0} with creation date 2020-05-30 16:41:27Z, activation date 2020-05-30 16:41:27Z, and expiration date 2020-08-28 16:41:27Z.
+INFO  2020-05-30 18:41:27,186 [1    ] ion.Repositories.FileSystemXmlRepository - Writing data to file 'C:\Users\mariu\AppData\Local\ASP.NET\DataProtection-Keys\key-9903689b-d11c-4c9f-9ebd-69faaa1a53f0.xml'.
+INFO  2020-05-30 18:41:27,298 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/  
+INFO  2020-05-30 18:41:27,616 [5    ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Web.Host.Controllers.HomeController.Index (MultiplayerAvalon.Web.Host)'
+INFO  2020-05-30 18:41:31,377 [5    ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller MultiplayerAvalon.Web.Host.Controllers.HomeController (MultiplayerAvalon.Web.Host).
+INFO  2020-05-30 18:41:32,981 [11   ] vc.Infrastructure.RedirectResultExecutor - Executing RedirectResult, redirecting to /swagger.
+INFO  2020-05-30 18:41:32,990 [11   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Web.Host.Controllers.HomeController.Index (MultiplayerAvalon.Web.Host) in 1606.4467ms
+INFO  2020-05-30 18:41:32,992 [11   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Web.Host.Controllers.HomeController.Index (MultiplayerAvalon.Web.Host)'
+INFO  2020-05-30 18:41:33,023 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 5728.0351ms 302 
+INFO  2020-05-30 18:41:33,032 [13   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger  
+INFO  2020-05-30 18:41:33,085 [13   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 52.987ms 301 
+INFO  2020-05-30 18:41:33,091 [13   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/index.html  
+INFO  2020-05-30 18:41:33,147 [13   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 54.0932ms 200 text/html;charset=utf-8
+INFO  2020-05-30 18:41:33,202 [4    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/swagger-ui.css  
+INFO  2020-05-30 18:41:33,208 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/ui/abp.js  
+INFO  2020-05-30 18:41:33,213 [12   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/swagger-ui-standalone-preset.js  
+INFO  2020-05-30 18:41:33,215 [13   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/swagger-ui-bundle.js  
+INFO  2020-05-30 18:41:33,216 [6    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/ui/abp.swagger.js  
+INFO  2020-05-30 18:41:33,270 [11   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger/ui/abp.js'. Physical path: 'C:\Users\mariu\repos\MultiplayerAvalon\api\src\MultiplayerAvalon.Web.Host\wwwroot\swagger\ui\abp.js'
+INFO  2020-05-30 18:41:33,295 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 72.0427ms 200 application/javascript
+INFO  2020-05-30 18:41:33,298 [12   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+INFO  2020-05-30 18:41:33,308 [6    ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger/ui/abp.swagger.js'. Physical path: 'C:\Users\mariu\repos\MultiplayerAvalon\api\src\MultiplayerAvalon.Web.Host\wwwroot\swagger\ui\abp.swagger.js'
+INFO  2020-05-30 18:41:33,320 [12   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 102.2174ms 200 application/javascript
+INFO  2020-05-30 18:41:33,323 [6    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 117.7653ms 200 application/javascript
+INFO  2020-05-30 18:41:33,327 [11   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+INFO  2020-05-30 18:41:33,335 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 134.5612ms 200 text/css
+INFO  2020-05-30 18:41:33,359 [12   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+INFO  2020-05-30 18:41:33,362 [12   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 157.8696ms 200 application/javascript
+INFO  2020-05-30 18:41:33,545 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/AntiForgery/SetCookie  
+INFO  2020-05-30 18:41:33,552 [5    ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Web.Host.Controllers.AntiForgeryController.SetCookie (MultiplayerAvalon.Web.Host)'
+INFO  2020-05-30 18:41:33,603 [5    ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "SetCookie", controller = "AntiForgery", area = ""}. Executing controller action with signature Void SetCookie() on controller MultiplayerAvalon.Web.Host.Controllers.AntiForgeryController (MultiplayerAvalon.Web.Host).
+INFO  2020-05-30 18:41:33,603 [12   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/v1/swagger.json  
+INFO  2020-05-30 18:41:33,814 [6    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/favicon-32x32.png  
+INFO  2020-05-30 18:41:33,819 [11   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 18:41:33,837 [6    ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+INFO  2020-05-30 18:41:33,848 [6    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 82.1448ms 200 image/png
+INFO  2020-05-30 18:41:33,995 [12   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 392.1956ms 200 application/json;charset=utf-8
+INFO  2020-05-30 18:41:34,064 [11   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Web.Host.Controllers.AntiForgeryController.SetCookie (MultiplayerAvalon.Web.Host) in 446.2705ms
+INFO  2020-05-30 18:41:34,070 [11   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Web.Host.Controllers.AntiForgeryController.SetCookie (MultiplayerAvalon.Web.Host)'
+INFO  2020-05-30 18:41:34,078 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 540.8355ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:15:55,612 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/AbpUserConfiguration/GetAll  
+INFO  2020-05-30 19:15:55,628 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:15:55,634 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 24.1982ms 204 
+INFO  2020-05-30 19:15:55,641 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/AbpUserConfiguration/GetAll  
+INFO  2020-05-30 19:15:55,646 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:15:55,658 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore)'
+INFO  2020-05-30 19:15:55,682 [38   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "GetAll", controller = "AbpUserConfiguration", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] GetAll() on controller Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController (Abp.AspNetCore).
+INFO  2020-05-30 19:15:56,298 [38   ] tonsoftJson.NewtonsoftJsonResultExecutor - Executing JsonResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:15:56,345 [38   ] c.Infrastructure.ControllerActionInvoker - Executed action Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore) in 661.2887ms
+INFO  2020-05-30 19:15:56,347 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore)'
+INFO  2020-05-30 19:15:56,349 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 707.2634ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:15:56,383 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/Session/GetCurrentLoginInformations  
+INFO  2020-05-30 19:15:56,385 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:15:56,388 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 4.043ms 204 
+INFO  2020-05-30 19:15:56,390 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/Session/GetCurrentLoginInformations  
+INFO  2020-05-30 19:15:56,395 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:15:56,399 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:15:56,406 [38   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetCurrentLoginInformations", controller = "Session"}. Executing controller action with signature System.Threading.Tasks.Task`1[MultiplayerAvalon.Sessions.Dto.GetCurrentLoginInformationsOutput] GetCurrentLoginInformations() on controller MultiplayerAvalon.Sessions.SessionAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:15:56,547 [38   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:15:56,562 [38   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application) in 151.9382ms
+INFO  2020-05-30 19:15:56,566 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:15:56,568 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 177.3618ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:16:58,997 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/TokenAuth/Authenticate  
+INFO  2020-05-30 19:16:59,000 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:16:59,006 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 9.2115ms 204 
+INFO  2020-05-30 19:16:59,008 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 POST http://localhost:21021/api/TokenAuth/Authenticate application/json;charset=UTF-8 53
+INFO  2020-05-30 19:16:59,012 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:16:59,016 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Controllers.TokenAuthController.Authenticate (MultiplayerAvalon.Web.Core)'
+INFO  2020-05-30 19:16:59,032 [38   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "Authenticate", controller = "TokenAuth", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[MultiplayerAvalon.Models.TokenAuth.AuthenticateResultModel] Authenticate(MultiplayerAvalon.Models.TokenAuth.AuthenticateModel) on controller MultiplayerAvalon.Controllers.TokenAuthController (MultiplayerAvalon.Web.Core).
+WARN  2020-05-30 19:16:59,503 [37   ] icrosoft.AspNetCore.Identity.UserManager - Invalid password for user 1.
+WARN  2020-05-30 19:16:59,950 [36   ] Mvc.ExceptionHandling.AbpExceptionFilter - Login failed!
+Abp.UI.UserFriendlyException: Login failed!
+   at MultiplayerAvalon.Controllers.TokenAuthController.GetLoginResultAsync(String usernameOrEmailAddress, String password, String tenancyName) in C:\Users\mariu\repos\MultiplayerAvalon\api\src\MultiplayerAvalon.Web.Core\Controllers\TokenAuthController.cs:line 192
+   at MultiplayerAvalon.Controllers.TokenAuthController.Authenticate(AuthenticateModel model) in C:\Users\mariu\repos\MultiplayerAvalon\api\src\MultiplayerAvalon.Web.Core\Controllers\TokenAuthController.cs:line 55
+   at lambda_method(Closure , Object )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutorAwaitable.Awaiter.GetResult()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+INFO  2020-05-30 19:16:59,956 [36   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:16:59,964 [36   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Controllers.TokenAuthController.Authenticate (MultiplayerAvalon.Web.Core) in 927.8033ms
+INFO  2020-05-30 19:16:59,967 [36   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Controllers.TokenAuthController.Authenticate (MultiplayerAvalon.Web.Core)'
+INFO  2020-05-30 19:16:59,969 [36   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 961.377ms 500 application/json; charset=utf-8
+INFO  2020-05-30 19:17:52,768 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/AbpUserConfiguration/GetAll  
+INFO  2020-05-30 19:17:52,773 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:17:52,800 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 8.2141ms 204 
+INFO  2020-05-30 19:17:52,819 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/AbpUserConfiguration/GetAll  
+INFO  2020-05-30 19:17:52,830 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:17:52,835 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore)'
+INFO  2020-05-30 19:17:52,846 [38   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "GetAll", controller = "AbpUserConfiguration", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] GetAll() on controller Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController (Abp.AspNetCore).
+INFO  2020-05-30 19:17:52,868 [5    ] tonsoftJson.NewtonsoftJsonResultExecutor - Executing JsonResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:17:52,874 [5    ] c.Infrastructure.ControllerActionInvoker - Executed action Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore) in 23.7454ms
+INFO  2020-05-30 19:17:52,878 [5    ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore)'
+INFO  2020-05-30 19:17:52,891 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 78.2352ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:17:52,955 [34   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/Session/GetCurrentLoginInformations  
+INFO  2020-05-30 19:17:52,959 [34   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:17:52,972 [34   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 7.3624ms 204 
+INFO  2020-05-30 19:17:52,977 [35   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/Session/GetCurrentLoginInformations  
+INFO  2020-05-30 19:17:52,980 [35   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:17:52,986 [35   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:17:52,990 [35   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetCurrentLoginInformations", controller = "Session"}. Executing controller action with signature System.Threading.Tasks.Task`1[MultiplayerAvalon.Sessions.Dto.GetCurrentLoginInformationsOutput] GetCurrentLoginInformations() on controller MultiplayerAvalon.Sessions.SessionAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:17:52,994 [35   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:17:52,997 [35   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application) in 4.9378ms
+INFO  2020-05-30 19:17:52,999 [35   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:17:53,001 [35   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 31.9371ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:20:29,125 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/TokenAuth/Authenticate  
+INFO  2020-05-30 19:20:29,128 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:29,131 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 10.3535ms 204 
+INFO  2020-05-30 19:20:29,135 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 POST http://localhost:21021/api/TokenAuth/Authenticate application/json;charset=UTF-8 54
+INFO  2020-05-30 19:20:29,139 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:29,145 [5    ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Controllers.TokenAuthController.Authenticate (MultiplayerAvalon.Web.Core)'
+INFO  2020-05-30 19:20:29,152 [5    ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "Authenticate", controller = "TokenAuth", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[MultiplayerAvalon.Models.TokenAuth.AuthenticateResultModel] Authenticate(MultiplayerAvalon.Models.TokenAuth.AuthenticateModel) on controller MultiplayerAvalon.Controllers.TokenAuthController (MultiplayerAvalon.Web.Core).
+INFO  2020-05-30 19:20:29,431 [36   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:20:29,436 [36   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Controllers.TokenAuthController.Authenticate (MultiplayerAvalon.Web.Core) in 282.5684ms
+INFO  2020-05-30 19:20:29,438 [36   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Controllers.TokenAuthController.Authenticate (MultiplayerAvalon.Web.Core)'
+INFO  2020-05-30 19:20:29,441 [36   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 305.7442ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:20:29,981 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/AbpUserConfiguration/GetAll  
+INFO  2020-05-30 19:20:29,987 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:30,003 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 10.2254ms 204 
+INFO  2020-05-30 19:20:30,015 [36   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/AbpUserConfiguration/GetAll  
+INFO  2020-05-30 19:20:30,019 [36   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:30,063 [36   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:20:30,191 [37   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore)'
+INFO  2020-05-30 19:20:30,196 [37   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "GetAll", controller = "AbpUserConfiguration", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] GetAll() on controller Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController (Abp.AspNetCore).
+INFO  2020-05-30 19:20:30,319 [36   ] tonsoftJson.NewtonsoftJsonResultExecutor - Executing JsonResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:20:30,322 [36   ] c.Infrastructure.ControllerActionInvoker - Executed action Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore) in 124.5026ms
+INFO  2020-05-30 19:20:30,325 [36   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore)'
+INFO  2020-05-30 19:20:30,327 [36   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 327.7187ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:20:30,384 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/Session/GetCurrentLoginInformations  
+INFO  2020-05-30 19:20:30,386 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:30,388 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 14.8105ms 204 
+INFO  2020-05-30 19:20:30,391 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/Session/GetCurrentLoginInformations  
+INFO  2020-05-30 19:20:30,393 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:30,396 [5    ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:20:30,397 [5    ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:30,402 [5    ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetCurrentLoginInformations", controller = "Session"}. Executing controller action with signature System.Threading.Tasks.Task`1[MultiplayerAvalon.Sessions.Dto.GetCurrentLoginInformationsOutput] GetCurrentLoginInformations() on controller MultiplayerAvalon.Sessions.SessionAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:20:30,433 [36   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:20:30,437 [36   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application) in 33.3584ms
+INFO  2020-05-30 19:20:30,438 [36   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:30,441 [36   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 49.7337ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:20:35,141 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/User/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:20:35,151 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:35,155 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 17.192ms 204 
+INFO  2020-05-30 19:20:35,157 [37   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/User/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:20:35,163 [37   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:35,167 [37   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:20:35,170 [37   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:35,186 [37   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[MultiplayerAvalon.Users.Dto.UserDto]] GetAllAsync(MultiplayerAvalon.Users.Dto.PagedUserResultRequestDto) on controller MultiplayerAvalon.Users.UserAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:20:35,566 [37   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:20:35,575 [37   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application) in 386.7981ms
+INFO  2020-05-30 19:20:35,576 [37   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:35,579 [37   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 422.382ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:20:35,772 [37   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/Role/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:20:35,775 [37   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:35,779 [37   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 5.6305ms 204 
+INFO  2020-05-30 19:20:35,780 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/Role/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:20:35,782 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:35,787 [5    ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:20:35,791 [5    ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Roles.RoleAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:35,801 [5    ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "Role"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[MultiplayerAvalon.Roles.Dto.RoleDto]] GetAllAsync(MultiplayerAvalon.Roles.Dto.PagedRoleResultRequestDto) on controller MultiplayerAvalon.Roles.RoleAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:20:36,068 [40   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:20:36,076 [40   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Roles.RoleAppService.GetAllAsync (MultiplayerAvalon.Application) in 272.6384ms
+INFO  2020-05-30 19:20:36,078 [40   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Roles.RoleAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:36,080 [40   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 299.6458ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:20:37,139 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/Tenant/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:20:37,142 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:37,144 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 10.8906ms 204 
+INFO  2020-05-30 19:20:37,147 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/Tenant/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:20:37,149 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:37,153 [5    ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:20:37,156 [5    ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.MultiTenancy.TenantAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:37,165 [5    ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "Tenant"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[MultiplayerAvalon.MultiTenancy.Dto.TenantDto]] GetAllAsync(MultiplayerAvalon.MultiTenancy.Dto.PagedTenantResultRequestDto) on controller MultiplayerAvalon.MultiTenancy.TenantAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:20:37,448 [42   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:20:37,455 [42   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.MultiTenancy.TenantAppService.GetAllAsync (MultiplayerAvalon.Application) in 288.3962ms
+INFO  2020-05-30 19:20:37,457 [42   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.MultiTenancy.TenantAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:37,460 [42   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 312.5105ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:20:38,029 [42   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/User/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:20:38,031 [42   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:38,034 [42   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:20:38,036 [42   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:38,042 [42   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[MultiplayerAvalon.Users.Dto.UserDto]] GetAllAsync(MultiplayerAvalon.Users.Dto.PagedUserResultRequestDto) on controller MultiplayerAvalon.Users.UserAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:20:38,064 [38   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:20:38,067 [38   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application) in 22.3221ms
+INFO  2020-05-30 19:20:38,069 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:38,072 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 42.6124ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:20:42,646 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/User/Get?id=1  
+INFO  2020-05-30 19:20:42,647 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:42,650 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 3.8629ms 204 
+INFO  2020-05-30 19:20:42,652 [5    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/User/Get?id=1  
+INFO  2020-05-30 19:20:42,654 [5    ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:42,657 [5    ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:20:42,659 [5    ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Users.UserAppService.GetAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:42,667 [5    ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "Get", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[MultiplayerAvalon.Users.Dto.UserDto] GetAsync(Abp.Application.Services.Dto.EntityDto`1[System.Int64]) on controller MultiplayerAvalon.Users.UserAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:20:42,702 [39   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:20:42,704 [39   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Users.UserAppService.GetAsync (MultiplayerAvalon.Application) in 35.6958ms
+INFO  2020-05-30 19:20:42,707 [39   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Users.UserAppService.GetAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:42,710 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 57.3732ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:20:42,713 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/User/GetRoles  
+INFO  2020-05-30 19:20:42,715 [39   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:42,717 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 4.0825ms 204 
+INFO  2020-05-30 19:20:42,719 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/User/GetRoles  
+INFO  2020-05-30 19:20:42,721 [39   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:20:42,723 [39   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:20:42,725 [39   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Users.UserAppService.GetRoles (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:42,733 [39   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetRoles", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.ListResultDto`1[MultiplayerAvalon.Roles.Dto.RoleDto]] GetRoles() on controller MultiplayerAvalon.Users.UserAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:20:42,762 [40   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:20:42,766 [40   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Users.UserAppService.GetRoles (MultiplayerAvalon.Application) in 30.1781ms
+INFO  2020-05-30 19:20:42,769 [40   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Users.UserAppService.GetRoles (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:20:42,770 [40   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 51.6292ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:21:42,776 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/User/ChangeLanguage  
+INFO  2020-05-30 19:21:42,778 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:42,781 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 3.2723ms 204 
+INFO  2020-05-30 19:21:42,785 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 POST http://localhost:21021/api/services/app/User/ChangeLanguage application/json;charset=UTF-8 21
+INFO  2020-05-30 19:21:42,786 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:42,789 [38   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:21:42,791 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Users.UserAppService.ChangeLanguage (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:42,799 [38   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "ChangeLanguage", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task ChangeLanguage(MultiplayerAvalon.Users.Dto.ChangeUserLanguageDto) on controller MultiplayerAvalon.Users.UserAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:21:42,838 [57   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:21:42,841 [57   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Users.UserAppService.ChangeLanguage (MultiplayerAvalon.Application) in 39.1477ms
+INFO  2020-05-30 19:21:42,843 [57   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Users.UserAppService.ChangeLanguage (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:42,845 [57   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 61.7029ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:21:43,088 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/AbpUserConfiguration/GetAll  
+INFO  2020-05-30 19:21:43,103 [39   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:43,109 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 24.6743ms 204 
+INFO  2020-05-30 19:21:43,110 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/AbpUserConfiguration/GetAll  
+INFO  2020-05-30 19:21:43,117 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:43,127 [38   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:21:43,155 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore)'
+INFO  2020-05-30 19:21:43,163 [38   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "GetAll", controller = "AbpUserConfiguration", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] GetAll() on controller Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController (Abp.AspNetCore).
+INFO  2020-05-30 19:21:43,192 [56   ] tonsoftJson.NewtonsoftJsonResultExecutor - Executing JsonResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:21:43,204 [56   ] c.Infrastructure.ControllerActionInvoker - Executed action Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore) in 29.1048ms
+INFO  2020-05-30 19:21:43,207 [56   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore)'
+INFO  2020-05-30 19:21:43,216 [56   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 102.2285ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:21:43,311 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/Session/GetCurrentLoginInformations  
+INFO  2020-05-30 19:21:43,315 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:43,320 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 9.401ms 204 
+INFO  2020-05-30 19:21:43,321 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/Session/GetCurrentLoginInformations  
+INFO  2020-05-30 19:21:43,324 [55   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:43,327 [55   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:21:43,330 [55   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:43,336 [55   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetCurrentLoginInformations", controller = "Session"}. Executing controller action with signature System.Threading.Tasks.Task`1[MultiplayerAvalon.Sessions.Dto.GetCurrentLoginInformationsOutput] GetCurrentLoginInformations() on controller MultiplayerAvalon.Sessions.SessionAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:21:43,348 [39   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:21:43,352 [39   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application) in 12.94ms
+INFO  2020-05-30 19:21:43,354 [39   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:43,356 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 34.6258ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:21:43,544 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/User/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:21:43,552 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:43,561 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 9.2994ms 204 
+INFO  2020-05-30 19:21:43,563 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/User/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:21:43,567 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:43,571 [38   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:21:43,573 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:43,579 [38   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[MultiplayerAvalon.Users.Dto.UserDto]] GetAllAsync(MultiplayerAvalon.Users.Dto.PagedUserResultRequestDto) on controller MultiplayerAvalon.Users.UserAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:21:43,600 [57   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:21:43,602 [57   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application) in 21.3233ms
+INFO  2020-05-30 19:21:43,605 [57   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:43,607 [57   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 43.7815ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:21:46,410 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 POST http://localhost:21021/api/services/app/User/ChangeLanguage application/json;charset=UTF-8 21
+INFO  2020-05-30 19:21:46,412 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:46,414 [38   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:21:46,416 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Users.UserAppService.ChangeLanguage (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:46,421 [38   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "ChangeLanguage", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task ChangeLanguage(MultiplayerAvalon.Users.Dto.ChangeUserLanguageDto) on controller MultiplayerAvalon.Users.UserAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:21:46,468 [54   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:21:46,471 [54   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Users.UserAppService.ChangeLanguage (MultiplayerAvalon.Application) in 48.3546ms
+INFO  2020-05-30 19:21:46,474 [54   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Users.UserAppService.ChangeLanguage (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:46,477 [54   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 65.3665ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:21:46,583 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/AbpUserConfiguration/GetAll  
+INFO  2020-05-30 19:21:46,594 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:46,597 [38   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:21:46,610 [58   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore)'
+INFO  2020-05-30 19:21:46,614 [58   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "GetAll", controller = "AbpUserConfiguration", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.JsonResult] GetAll() on controller Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController (Abp.AspNetCore).
+INFO  2020-05-30 19:21:46,628 [57   ] tonsoftJson.NewtonsoftJsonResultExecutor - Executing JsonResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:21:46,632 [57   ] c.Infrastructure.ControllerActionInvoker - Executed action Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore) in 14.6061ms
+INFO  2020-05-30 19:21:46,633 [57   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Abp.AspNetCore.Mvc.Controllers.AbpUserConfigurationController.GetAll (Abp.AspNetCore)'
+INFO  2020-05-30 19:21:46,635 [57   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 57.345ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:21:46,675 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/Session/GetCurrentLoginInformations  
+INFO  2020-05-30 19:21:46,677 [39   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:46,679 [39   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:21:46,685 [56   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:46,690 [56   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetCurrentLoginInformations", controller = "Session"}. Executing controller action with signature System.Threading.Tasks.Task`1[MultiplayerAvalon.Sessions.Dto.GetCurrentLoginInformationsOutput] GetCurrentLoginInformations() on controller MultiplayerAvalon.Sessions.SessionAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:21:46,698 [54   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:21:46,702 [54   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application) in 9.4197ms
+INFO  2020-05-30 19:21:46,704 [54   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Sessions.SessionAppService.GetCurrentLoginInformations (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:46,706 [54   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 32.8176ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:21:46,892 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/User/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:21:46,897 [38   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:46,902 [38   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:21:46,913 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:46,919 [38   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[MultiplayerAvalon.Users.Dto.UserDto]] GetAllAsync(MultiplayerAvalon.Users.Dto.PagedUserResultRequestDto) on controller MultiplayerAvalon.Users.UserAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:21:46,939 [55   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:21:46,945 [55   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application) in 20.2116ms
+INFO  2020-05-30 19:21:46,950 [55   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:46,952 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 59.838ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:21:47,684 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/User/GetRoles  
+INFO  2020-05-30 19:21:47,686 [39   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:47,689 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 5.6475ms 204 
+INFO  2020-05-30 19:21:47,691 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/User/GetRoles  
+INFO  2020-05-30 19:21:47,693 [39   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:21:47,697 [39   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:21:47,709 [55   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Users.UserAppService.GetRoles (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:47,713 [55   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetRoles", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.ListResultDto`1[MultiplayerAvalon.Roles.Dto.RoleDto]] GetRoles() on controller MultiplayerAvalon.Users.UserAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:21:47,725 [56   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:21:47,728 [56   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Users.UserAppService.GetRoles (MultiplayerAvalon.Application) in 12.112ms
+INFO  2020-05-30 19:21:47,733 [56   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Users.UserAppService.GetRoles (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:21:47,736 [56   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 43.8492ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:30:06,754 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/User/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:30:06,756 [39   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:30:06,761 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 5.1413ms 204 
+INFO  2020-05-30 19:30:06,763 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/User/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:30:06,765 [39   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:30:06,768 [39   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:30:06,779 [39   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:30:06,784 [39   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[MultiplayerAvalon.Users.Dto.UserDto]] GetAllAsync(MultiplayerAvalon.Users.Dto.PagedUserResultRequestDto) on controller MultiplayerAvalon.Users.UserAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:30:06,826 [38   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:30:06,828 [38   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application) in 42.6989ms
+INFO  2020-05-30 19:30:06,831 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:30:06,833 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 70.625ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:30:07,411 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/Role/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:30:07,416 [39   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:30:07,421 [39   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 7.1625ms 204 
+INFO  2020-05-30 19:30:07,422 [42   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/Role/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:30:07,427 [42   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:30:07,433 [42   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:30:07,450 [56   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Roles.RoleAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:30:07,461 [56   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "Role"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[MultiplayerAvalon.Roles.Dto.RoleDto]] GetAllAsync(MultiplayerAvalon.Roles.Dto.PagedRoleResultRequestDto) on controller MultiplayerAvalon.Roles.RoleAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:30:07,501 [38   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:30:07,506 [38   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Roles.RoleAppService.GetAllAsync (MultiplayerAvalon.Application) in 40.8696ms
+INFO  2020-05-30 19:30:07,510 [38   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Roles.RoleAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:30:07,511 [38   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 89.426ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:30:07,899 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/Tenant/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:30:07,901 [55   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:30:07,912 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 6.6743ms 204 
+INFO  2020-05-30 19:30:07,923 [55   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/Tenant/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:30:07,929 [55   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:30:07,947 [55   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:30:07,958 [42   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.MultiTenancy.TenantAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:30:07,964 [42   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "Tenant"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[MultiplayerAvalon.MultiTenancy.Dto.TenantDto]] GetAllAsync(MultiplayerAvalon.MultiTenancy.Dto.PagedTenantResultRequestDto) on controller MultiplayerAvalon.MultiTenancy.TenantAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:30:07,985 [40   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:30:07,989 [40   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.MultiTenancy.TenantAppService.GetAllAsync (MultiplayerAvalon.Application) in 22.6018ms
+INFO  2020-05-30 19:30:07,991 [40   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.MultiTenancy.TenantAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:30:07,994 [40   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 79.1217ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:34:09,079 [56   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/User/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:34:09,081 [56   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:34:09,084 [56   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 3.9336ms 204 
+INFO  2020-05-30 19:34:09,087 [56   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/User/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:34:09,088 [56   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:34:09,091 [56   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:34:09,105 [34   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:34:09,110 [34   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[MultiplayerAvalon.Users.Dto.UserDto]] GetAllAsync(MultiplayerAvalon.Users.Dto.PagedUserResultRequestDto) on controller MultiplayerAvalon.Users.UserAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:34:09,127 [34   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:34:09,131 [34   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application) in 17.1962ms
+INFO  2020-05-30 19:34:09,137 [34   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:34:09,144 [34   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 53.6226ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:34:09,530 [52   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/Role/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:34:09,532 [52   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:34:09,534 [52   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 3.7987ms 204 
+INFO  2020-05-30 19:34:09,537 [52   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/Role/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:34:09,539 [52   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:34:09,542 [52   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:34:09,550 [52   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Roles.RoleAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:34:09,554 [52   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "Role"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[MultiplayerAvalon.Roles.Dto.RoleDto]] GetAllAsync(MultiplayerAvalon.Roles.Dto.PagedRoleResultRequestDto) on controller MultiplayerAvalon.Roles.RoleAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:34:09,571 [36   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:34:09,573 [36   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Roles.RoleAppService.GetAllAsync (MultiplayerAvalon.Application) in 16.879ms
+INFO  2020-05-30 19:34:09,575 [36   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Roles.RoleAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:34:09,577 [36   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 40.6392ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:34:09,946 [56   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 OPTIONS http://localhost:21021/api/services/app/Tenant/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:34:09,948 [56   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:34:09,950 [56   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 4.5244ms 204 
+INFO  2020-05-30 19:34:09,952 [56   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/Tenant/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:34:09,954 [56   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:34:09,956 [56   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:34:09,965 [34   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.MultiTenancy.TenantAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:34:09,970 [34   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "Tenant"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[MultiplayerAvalon.MultiTenancy.Dto.TenantDto]] GetAllAsync(MultiplayerAvalon.MultiTenancy.Dto.PagedTenantResultRequestDto) on controller MultiplayerAvalon.MultiTenancy.TenantAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:34:09,986 [52   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:34:09,990 [52   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.MultiTenancy.TenantAppService.GetAllAsync (MultiplayerAvalon.Application) in 16.115ms
+INFO  2020-05-30 19:34:09,995 [52   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.MultiTenancy.TenantAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:34:09,998 [52   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 44.9905ms 200 application/json; charset=utf-8
+INFO  2020-05-30 19:34:11,622 [56   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/User/GetAll?maxResultCount=10&skipCount=0&keyword=  
+INFO  2020-05-30 19:34:11,624 [56   ] pNetCore.Cors.Infrastructure.CorsService - CORS policy execution successful.
+INFO  2020-05-30 19:34:11,627 [56   ] uthentication.JwtBearer.JwtBearerHandler - Successfully validated the token.
+INFO  2020-05-30 19:34:11,640 [56   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:34:11,650 [56   ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[MultiplayerAvalon.Users.Dto.UserDto]] GetAllAsync(MultiplayerAvalon.Users.Dto.PagedUserResultRequestDto) on controller MultiplayerAvalon.Users.UserAppService (MultiplayerAvalon.Application).
+INFO  2020-05-30 19:34:11,678 [52   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-05-30 19:34:11,681 [52   ] c.Infrastructure.ControllerActionInvoker - Executed action MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application) in 28.2313ms
+INFO  2020-05-30 19:34:11,683 [52   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'MultiplayerAvalon.Users.UserAppService.GetAllAsync (MultiplayerAvalon.Application)'
+INFO  2020-05-30 19:34:11,685 [52   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 63.1043ms 200 application/json; charset=utf-8
