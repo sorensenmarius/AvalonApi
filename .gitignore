@@ -252,4 +252,4 @@ paket-files/
 *.sln.iml
 
 # Logs
-*/App_Data/Logs/*
+*Logs.txt*
