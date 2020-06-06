@@ -21,5 +21,10 @@ namespace MultiplayerAvalon.Games
             await _gameRepository.InsertAsync(g);
             return ObjectMapper.Map<GameDto>(g);
         }
+        public async Task<GameDto> GetAsync(Guid id)
+        {
+            Game g = await _gameRepository.GetAsync(id);
+            return ObjectMapper.Map<GameDto>(g);
+        }
     }
 }
