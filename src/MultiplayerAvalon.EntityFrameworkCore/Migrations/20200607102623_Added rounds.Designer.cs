@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MultiplayerAvalon.EntityFrameworkCore;
 
 namespace MultiplayerAvalon.Migrations
 {
     [DbContext(typeof(MultiplayerAvalonDbContext))]
-    partial class MultiplayerAvalonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200607102623_Added rounds")]
+    partial class Addedrounds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1320,9 +1322,6 @@ namespace MultiplayerAvalon.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("CurrentRoundId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("JoinCode")
                         .HasColumnType("int");
 
@@ -1330,8 +1329,6 @@ namespace MultiplayerAvalon.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CurrentRoundId");
 
                     b.ToTable("Games");
                 });
@@ -1356,16 +1353,11 @@ namespace MultiplayerAvalon.Migrations
                     b.Property<Guid?>("RoundId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("RoundId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GameId");
 
                     b.HasIndex("RoundId");
-
-                    b.HasIndex("RoundId1");
 
                     b.ToTable("Players");
                 });
@@ -1826,13 +1818,6 @@ namespace MultiplayerAvalon.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MultiplayerAvalon.AppDomain.Games.Game", b =>
-                {
-                    b.HasOne("MultiplayerAvalon.AppDomain.Rounds.Round", "CurrentRound")
-                        .WithMany()
-                        .HasForeignKey("CurrentRoundId");
-                });
-
             modelBuilder.Entity("MultiplayerAvalon.AppDomain.Players.Player", b =>
                 {
                     b.HasOne("MultiplayerAvalon.AppDomain.Games.Game", null)
@@ -1840,12 +1825,8 @@ namespace MultiplayerAvalon.Migrations
                         .HasForeignKey("GameId");
 
                     b.HasOne("MultiplayerAvalon.AppDomain.Rounds.Round", null)
-                        .WithMany("CurrentTeam")
-                        .HasForeignKey("RoundId");
-
-                    b.HasOne("MultiplayerAvalon.AppDomain.Rounds.Round", null)
                         .WithMany("Players")
-                        .HasForeignKey("RoundId1");
+                        .HasForeignKey("RoundId");
                 });
 
             modelBuilder.Entity("MultiplayerAvalon.Authorization.Roles.Role", b =>

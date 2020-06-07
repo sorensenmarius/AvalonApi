@@ -1,6 +1,7 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using MultiplayerAvalon.AppDomain.Players;
+using MultiplayerAvalon.AppDomain.Rounds;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,10 +15,12 @@ namespace MultiplayerAvalon.AppDomain.Games
     {
         [Required]
         public int JoinCode { get; set; }
+        public int counter { get; set; }
+        public Player CurrentPlayer { get; set; }
         public List<Player> Players { get; set; }
         public DateTime CreationTime { get; set; }
         public GameStatus Status { get; set; }
-
+        public Round CurrentRound { get; set; }
         public Game()
         {
             Random generator = new Random();
@@ -26,5 +29,6 @@ namespace MultiplayerAvalon.AppDomain.Games
             CreationTime = DateTime.Now;
             Status = GameStatus.WaitingForPlayers;
         }
+       
     }
 }

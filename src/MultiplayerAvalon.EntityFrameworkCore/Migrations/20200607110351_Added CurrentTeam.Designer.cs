@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MultiplayerAvalon.EntityFrameworkCore;
 
 namespace MultiplayerAvalon.Migrations
 {
     [DbContext(typeof(MultiplayerAvalonDbContext))]
-    partial class MultiplayerAvalonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200607110351_Added CurrentTeam")]
+    partial class AddedCurrentTeam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1320,9 +1322,6 @@ namespace MultiplayerAvalon.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("CurrentRoundId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("JoinCode")
                         .HasColumnType("int");
 
@@ -1330,8 +1329,6 @@ namespace MultiplayerAvalon.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CurrentRoundId");
 
                     b.ToTable("Games");
                 });
@@ -1824,13 +1821,6 @@ namespace MultiplayerAvalon.Migrations
                         .HasForeignKey("WebhookEventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MultiplayerAvalon.AppDomain.Games.Game", b =>
-                {
-                    b.HasOne("MultiplayerAvalon.AppDomain.Rounds.Round", "CurrentRound")
-                        .WithMany()
-                        .HasForeignKey("CurrentRoundId");
                 });
 
             modelBuilder.Entity("MultiplayerAvalon.AppDomain.Players.Player", b =>

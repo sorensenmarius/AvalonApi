@@ -26,5 +26,15 @@ namespace MultiplayerAvalon.Games
             Game g = await _gameRepository.GetAsync(id);
             return ObjectMapper.Map<GameDto>(g);
         }
+
+        public Task<GameDto> VoteExpedition(Guid GameId, Guid PlayerId, bool Status)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<GameDto> VoteExpeditionResult(Guid GameId, Guid PlayerId, bool Status)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
