@@ -9,7 +9,7 @@ namespace MultiplayerAvalon.Games.Dto
     [AutoMapFrom(typeof(Game))]
     public class GameDto
     {
-        [Required]
+        public Guid Id { get; set; }
         public string JoinCode { get; set; }
         public Player[] Players { get; set; }
         public GameStatus Status { get; set; }

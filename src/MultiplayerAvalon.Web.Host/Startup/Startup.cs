@@ -18,6 +18,7 @@ using Abp.Dependency;
 using Abp.Json;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using MultiplayerAvalon.Games;
 
 namespace MultiplayerAvalon.Web.Host.Startup
 {
@@ -130,11 +131,10 @@ namespace MultiplayerAvalon.Web.Host.Startup
             app.UseAuthentication();
 
             app.UseAbpRequestLocalization();
-
           
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<AbpCommonHub>("/signalr");
+                endpoints.MapHub<GameHub>("/gameHub");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("defaultWithArea", "{area}/{controller=Home}/{action=Index}/{id?}");
             });

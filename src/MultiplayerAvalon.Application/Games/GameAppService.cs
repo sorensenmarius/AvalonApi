@@ -1,7 +1,9 @@
 ﻿using Abp.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using MultiplayerAvalon.AppDomain.Games;
 using MultiplayerAvalon.Games.Dto;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MultiplayerAvalon.Games
@@ -21,10 +23,16 @@ namespace MultiplayerAvalon.Games
             await _gameRepository.InsertAsync(g);
             return ObjectMapper.Map<GameDto>(g);
         }
+        /// <summary>
+        /// Gets a game by ID, populated with players
+        /// </summary>
+        /// TODO - Refactor this to a stored procedure in the DB
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<GameDto> GetAsync(Guid id)
         {
-            Game g = await _gameRepository.GetAsync(id);
-            return ObjectMapper.Map<GameDto>(g);
+            List<Game> g = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
+            return ObjectMapper.Map<GameDto>(g.Find(item => item.Id == id));
         }
     }
 }
