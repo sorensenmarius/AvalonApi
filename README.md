@@ -11,7 +11,7 @@
 1. Clone this repository
 2. Open the solution in Visual Studio
 3. Input the SQL Server ConnectionString in appsettings.json (in MultiplayerAvalon.Web.Host)
-4. Set MultiplayerAvalon.EntityFrameworkCore as your startup project
-5. Open the Package Manager Console
+4. Open the Package Manager Console 
+5. Choose MultiplayerAvalon.EntityFrameworkCore at the top of the Package Manager Console
 6. Run "Update-Database" in the Package Manager Console
 7. The database should now be setup and usable in SSMS
