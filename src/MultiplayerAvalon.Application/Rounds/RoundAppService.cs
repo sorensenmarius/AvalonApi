@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using MultiplayerAvalon.AppDomain.Games;
 using MultiplayerAvalon.AppDomain.Players;
 using MultiplayerAvalon.AppDomain.Rounds;
@@ -28,58 +29,74 @@ namespace MultiplayerAvalon.Rounds
         }
         public async Task AddPlayerToTeam(Guid PlayerId, Guid GameId)
         {
-            (var g, var p) = await GetGameAndPlayerAsync(GameId, PlayerId);
-            g.CurrentRound.CurrentTeam.Add(p);
-            await _gameRepository.UpdateAsync(g);
+            Player p = await _playerRepository.GetAsync(PlayerId);
+            List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound.CurrentTeam).ToListAsync();
+            var game = g.Find(item => item.Id == GameId);
+            game.CurrentRound.CurrentTeam.Add(p);
+            await _gameRepository.UpdateAsync(game);
         }
         public async Task RemovePlayerFromTeam(Guid PlayerId, Guid GameId)
         {
-            (var g, var p) = await GetGameAndPlayerAsync(GameId, PlayerId);
-            g.CurrentRound.CurrentTeam.Remove(p);
-            await _gameRepository.UpdateAsync(g);
+            Player p = await _playerRepository.GetAsync(PlayerId);
+            List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound.CurrentTeam).ToListAsync();
+            var game = g.Find(item => item.Id == GameId);
+            game.CurrentRound.CurrentTeam.Remove(p);
+            await _gameRepository.UpdateAsync(game);
         }
         public async Task VoteForTeam(Guid GameId, Guid PlayerId, bool Vote)
         {
-            (var g, var p) = await GetGameAndPlayerAsync(GameId, PlayerId);
-            if (Vote) g.CurrentRound.VotesForTeam++;
-            await _gameRepository.UpdateAsync(g);
+            Player p = await _playerRepository.GetAsync(PlayerId);
+            List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound).ToListAsync();
+            var game = g.Find(item => item.Id == GameId);
+            if (Vote) game.CurrentRound.VotesForTeam++;
+            await _gameRepository.UpdateAsync(game);
         }
         public async Task ExpeditonVote(Guid GameId, Guid PlayerId, bool Vote)
         {
-            (var g, var p) = await GetGameAndPlayerAsync(GameId, PlayerId);
-            if (Vote) g.CurrentRound.TeamExpVote++;
-            await _gameRepository.UpdateAsync(g);
+            Player p = await _playerRepository.GetAsync(PlayerId);
+            List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound).ToListAsync();
+            var game = g.Find(item => item.Id == GameId);
+            if (Vote) game.CurrentRound.TeamExpVote++;
+            System.Diagnostics.Debug.WriteLine(game.CurrentRound.TeamExpVote);
+            await _gameRepository.UpdateAsync(game);
         }
         public async Task VoteForTeamResults(Guid GameId)
         {
-            Game g = await _gameRepository.GetAsync(GameId);
-            var Votesfor = g.CurrentRound.VotesForTeam;
-            if (Votesfor <= g.Players.Count() / 2)
+            List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound).ToListAsync();
+            List<Game> GwithPlayers = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
+            var game = g.Find(item => item.Id == GameId);
+            var GPlayers = GwithPlayers.Find(item => item.Id == GameId);
+            var Votesfor = game.CurrentRound.VotesForTeam;
+            if (Votesfor <= GPlayers.Players.Count() / 2)
             {
-                g.CurrentRound.Status = RoundStatus.TeamDenied; // istedenfor dette, bare gå rett på neste spiller. 
-                g.CurrentPlayer = g.Players[g.counter++ % g.Players.Count()];
+                game.CurrentRound.Status = RoundStatus.TeamDenied; // istedenfor dette, bare gå rett på neste spiller. 
+                game.CurrentRound.FailedTeams++;
             }
-            else g.CurrentRound.Status = RoundStatus.TeamApproved;
-            await _gameRepository.UpdateAsync(g);
+            else game.CurrentRound.Status = RoundStatus.TeamApproved;
+            game.CurrentPlayer = GPlayers.Players[game.counter++ % GPlayers.Players.Count()]; // Neste spiller uansett om den går gjennom eller ikke. 
+            await _gameRepository.UpdateAsync(game);
         }
         public async Task ExpeditionResults(Guid GameId)
         {
-            Game g = await _gameRepository.GetAsync(GameId);
-            var statusen = g.CurrentRound.TeamExpVote - g.Players.Count();
-            if (statusen < g.Players.Count() / 2 || statusen == g.Players.Count() / 2)
+            List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound).ToListAsync();
+            List<Game> GwithPlayers = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
+            var game = g.Find(item => item.Id == GameId);
+            var GPlayers = GwithPlayers.Find(item => item.Id == GameId);
+            var statusen = GPlayers.Players.Count() - game.CurrentRound.TeamExpVote;
+            System.Diagnostics.Debug.WriteLine(statusen);
+            System.Diagnostics.Debug.WriteLine(game.CurrentRound.Status);
+            if (statusen < GPlayers.Players.Count())
             {
-                g.CurrentRound.Status = RoundStatus.MissionFailed;
+                game.CurrentRound.Status = RoundStatus.MissionFailed;
+                game.PointsEvil++;
             }
-            else g.CurrentRound.Status = RoundStatus.MissionSuccess;
-            await _gameRepository.UpdateAsync(g);
+            else
+            {
+                game.CurrentRound.Status = RoundStatus.MissionSuccess;
+                game.PointsInnocent++;
+            }
+            System.Diagnostics.Debug.WriteLine(game.CurrentRound.Status);
+            await _gameRepository.UpdateAsync(game);
         }
-        public async Task<(Game game, Player player)> GetGameAndPlayerAsync(Guid GameId, Guid PlayerId)
-        {
-            Game g = await _gameRepository.GetAsync(GameId);
-            Player p = await _playerRepository.GetAsync(PlayerId);
-            return (g,p);
-        }
-
-      
     }
 }

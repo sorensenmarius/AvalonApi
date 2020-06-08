@@ -10,6 +10,7 @@ namespace MultiplayerAvalon.Games
     {
 
         public Task<GameDto> CreateAsync();
+        public Task<GameDto> StartGame(Guid id);
         public Task<GameDto> GetAsync(Guid id);
         public Task<GameDto> VoteExpedition(Guid GameId, Guid PlayerId, Boolean Status);
         public Task<GameDto> VoteExpeditionResult(Guid GameId, Guid PlayerId, Boolean Status);

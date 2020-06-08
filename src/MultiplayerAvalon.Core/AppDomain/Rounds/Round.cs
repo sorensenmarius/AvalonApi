@@ -20,6 +20,7 @@ namespace MultiplayerAvalon.AppDomain.Rounds
         public RoundStatus Status { get; set; }
         public int VotesForTeam { get; set; }
         public int TeamExpVote { get; set; }
+        public int ExpFailureVote { get; set; }
         //public List<string> Votes {get;set;} // For the time being votes can be added in string such as: Votes for {VoteUp} and votes against {VoteDown}
         //public List<List<VoteResults>> ExpeditionVote { get; set; }
     }

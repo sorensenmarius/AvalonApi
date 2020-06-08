@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MultiplayerAvalon.EntityFrameworkCore;
 
 namespace MultiplayerAvalon.Migrations
 {
     [DbContext(typeof(MultiplayerAvalonDbContext))]
-    partial class MultiplayerAvalonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200608103447_La til int coloum for å se hvor mange slemme stemmer det var på Mission")]
+    partial class LatilintcoloumforåsehvormangeslemmestemmerdetvarpåMission
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1327,12 +1329,6 @@ namespace MultiplayerAvalon.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("JoinCode")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PointsEvil")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PointsInnocent")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")

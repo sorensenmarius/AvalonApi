@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MultiplayerAvalon.Rounds
 {
-    interface IRoundAppService
+    public interface IRoundAppService
     {
         public Task VoteForTeam(Guid GameId, Guid PlayerId, bool Vote);
         public Task ExpeditonVote(Guid GameId, Guid PlayerId, bool Vote);

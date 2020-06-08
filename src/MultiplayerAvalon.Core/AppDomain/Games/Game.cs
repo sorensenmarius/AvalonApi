@@ -16,6 +16,8 @@ namespace MultiplayerAvalon.AppDomain.Games
         [Required]
         public int JoinCode { get; set; }
         public int counter { get; set; }
+        public int PointsInnocent { get; set; }
+        public int PointsEvil { get; set; }
         public Player CurrentPlayer { get; set; }
         public List<Player> Players { get; set; }
         public DateTime CreationTime { get; set; }
