@@ -35,6 +35,7 @@ namespace MultiplayerAvalon.Games
             Game g = await _gameRepository.GetAsync(id);
             Round r = await CreateNewRound();
             g.CurrentRound = r;
+            g.Status = GameStatus.Playing;
             //g.CurrentPlayer = g.Players[g.counter];
             await _gameRepository.UpdateAsync(g);
             return ObjectMapper.Map<GameDto>(g);
