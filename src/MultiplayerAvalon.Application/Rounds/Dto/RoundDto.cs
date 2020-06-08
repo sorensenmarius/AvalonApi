@@ -12,9 +12,13 @@ namespace MultiplayerAvalon.Rounds.Dto
     {
         [Required]
         public string RoundCode { get; set; }
-        public Player[] Players { get; set; }
-        public Player[] CurrentlyChoosen { get; set; }
+        public Player[] CurrentTeam { get; set; }
         public RoundStatus Status { get; set; }
-        public int WhosTurn { get; set; }
+        public int FailedTeams { get; set; }
+        public int VotesForTeam { get; set; }
+        public int VotesAgainstTeam { get; set; }
+        public int MissionVoteGood { get; set; }
+        public int MissionVoteBad { get; set; }
+
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Abp.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
+using MultiplayerAvalon.AppDomain.GameRoles;
 using MultiplayerAvalon.AppDomain.Games;
 using MultiplayerAvalon.AppDomain.Players;
 using MultiplayerAvalon.AppDomain.Rounds;
@@ -6,6 +8,7 @@ using MultiplayerAvalon.Games.Dto;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MultiplayerAvalon.Games
@@ -30,12 +33,39 @@ namespace MultiplayerAvalon.Games
             Game g = await _gameRepository.GetAsync(id);
             return ObjectMapper.Map<GameDto>(g);
         }
-        public async Task<GameDto> StartGame(Guid id)
+        public async Task<GameDto> StartGame(Guid id, List<string> rollene, int minions)
         {
-            Game g = await _gameRepository.GetAsync(id);
+            List<Game> game = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
+            Game g = game.Find(item => item.Id == id);
             Round r = await CreateNewRound();
             g.CurrentRound = r;
-            //g.CurrentPlayer = g.Players[g.counter];
+            g.CurrentPlayer = g.Players[0];
+            await AssertRoles(id, rollene, minions);
+            await _gameRepository.UpdateAsync(g);
+            return ObjectMapper.Map<GameDto>(g);
+        }
+        public async Task<GameDto> AssertRoles(Guid id, List<string> rollene,int minions)
+        {
+            List<Game> game = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
+            Game g = game.Find(item => item.Id == id);
+            while (rollene.Count() < g.Players.Count())
+            {
+                while (minions > 0) 
+                {
+                    rollene.Add("2");
+                    minions--;
+                }
+                rollene.Add("1");
+            }
+            List<string> roles = ShuffleNew(rollene);
+            List<GameRole> gameroles = new List<GameRole>();
+            roles.ForEach(x => gameroles.Add((GameRole)Enum.Parse(typeof(GameRole), x.ToString())));
+            int x = 0;
+            foreach (Player player in g.Players)
+            {
+                player.Role = gameroles[x];
+                x++;
+            }
             await _gameRepository.UpdateAsync(g);
             return ObjectMapper.Map<GameDto>(g);
         }
@@ -45,15 +75,23 @@ namespace MultiplayerAvalon.Games
             r.CurrentTeam = new List<Player>();
             return r;
         }
-
-        public Task<GameDto> VoteExpedition(Guid GameId, Guid PlayerId, bool Status)
+        public List<Player> ShufflePlayers(List<Player> items)
         {
-            throw new NotImplementedException();
+            return items.Distinct().OrderBy(x => System.Guid.NewGuid().ToString()).ToList();
         }
-
-        public Task<GameDto> VoteExpeditionResult(Guid GameId, Guid PlayerId, bool Status)
+        public List<string> ShuffleNew(List<string> list)
         {
-            throw new NotImplementedException();
+            Random rng = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                string value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+            return list;
         }
     }
 }

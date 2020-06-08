@@ -56,8 +56,8 @@ namespace MultiplayerAvalon.Rounds
             Player p = await _playerRepository.GetAsync(PlayerId);
             List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound).ToListAsync();
             var game = g.Find(item => item.Id == GameId);
-            if (Vote) game.CurrentRound.TeamExpVote++;
-            System.Diagnostics.Debug.WriteLine(game.CurrentRound.TeamExpVote);
+            if (Vote) game.CurrentRound.MissionVoteGood++;
+            System.Diagnostics.Debug.WriteLine(game.CurrentRound.MissionVoteGood);
             await _gameRepository.UpdateAsync(game);
         }
         public async Task VoteForTeamResults(Guid GameId)
@@ -67,6 +67,7 @@ namespace MultiplayerAvalon.Rounds
             var game = g.Find(item => item.Id == GameId);
             var GPlayers = GwithPlayers.Find(item => item.Id == GameId);
             var Votesfor = game.CurrentRound.VotesForTeam;
+            game.CurrentRound.VotesAgainstTeam = game.Players.Count() - game.CurrentRound.VotesForTeam;
             if (Votesfor <= GPlayers.Players.Count() / 2)
             {
                 game.CurrentRound.Status = RoundStatus.TeamDenied; // istedenfor dette, bare gå rett på neste spiller. 
@@ -82,9 +83,8 @@ namespace MultiplayerAvalon.Rounds
             List<Game> GwithPlayers = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
             var game = g.Find(item => item.Id == GameId);
             var GPlayers = GwithPlayers.Find(item => item.Id == GameId);
-            var statusen = GPlayers.Players.Count() - game.CurrentRound.TeamExpVote;
-            System.Diagnostics.Debug.WriteLine(statusen);
-            System.Diagnostics.Debug.WriteLine(game.CurrentRound.Status);
+            var statusen = GPlayers.Players.Count() - game.CurrentRound.MissionVoteGood;
+            game.CurrentRound.MissionVoteBad = GPlayers.Players.Count() - game.CurrentRound.MissionVoteGood;
             if (statusen < GPlayers.Players.Count())
             {
                 game.CurrentRound.Status = RoundStatus.MissionFailed;
