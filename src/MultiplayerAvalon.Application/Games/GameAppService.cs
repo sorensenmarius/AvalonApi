@@ -40,6 +40,7 @@ namespace MultiplayerAvalon.Games
             Round r = await CreateNewRound();
             g.CurrentRound = r;
             g.CurrentPlayer = g.Players[0];
+            g.Status = GameStatus.Playing;
             await AssertRoles(id, rollene, minions);
             await _gameRepository.UpdateAsync(g);
             return ObjectMapper.Map<GameDto>(g);
