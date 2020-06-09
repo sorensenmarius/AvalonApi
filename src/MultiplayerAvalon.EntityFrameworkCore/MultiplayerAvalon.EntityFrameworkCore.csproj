@@ -10,6 +10,20 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200607100933_Added rounds.cs" />
     <Compile Remove="Migrations\20200607100933_Added rounds.Designer.cs" />
+    <Compile Remove="Migrations\20200608201110_removed RoleID.cs" />
+    <Compile Remove="Migrations\20200608201110_removed RoleID.Designer.cs" />
+    <Compile Remove="Migrations\20200608201259_removed RoleID.cs" />
+    <Compile Remove="Migrations\20200608201259_removed RoleID.Designer.cs" />
+    <Compile Remove="Migrations\20200608202226_test.cs" />
+    <Compile Remove="Migrations\20200608202226_test.Designer.cs" />
+    <Compile Remove="Migrations\20200609093800_jaja.cs" />
+    <Compile Remove="Migrations\20200609093800_jaja.Designer.cs" />
+    <Compile Remove="Migrations\20200609111456_endret key til string.cs" />
+    <Compile Remove="Migrations\20200609111456_endret key til string.Designer.cs" />
+    <Compile Remove="Migrations\20200609111805_endret key til string.cs" />
+    <Compile Remove="Migrations\20200609111805_endret key til string.Designer.cs" />
+    <Compile Remove="Migrations\20200609125542_Final Role logic.cs" />
+    <Compile Remove="Migrations\20200609125542_Final Role logic.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
