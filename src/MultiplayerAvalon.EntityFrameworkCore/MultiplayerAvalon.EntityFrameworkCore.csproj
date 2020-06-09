@@ -24,6 +24,8 @@
     <Compile Remove="Migrations\20200609111805_endret key til string.Designer.cs" />
     <Compile Remove="Migrations\20200609125542_Final Role logic.cs" />
     <Compile Remove="Migrations\20200609125542_Final Role logic.Designer.cs" />
+    <Compile Remove="Migrations\20200609140938_GameEnd.cs" />
+    <Compile Remove="Migrations\20200609140938_GameEnd.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />

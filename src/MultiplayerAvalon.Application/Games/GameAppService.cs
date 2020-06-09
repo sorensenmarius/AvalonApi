@@ -49,6 +49,37 @@ namespace MultiplayerAvalon.Games
             await _gameRepository.UpdateAsync(g);
             return ObjectMapper.Map<GameDto>(g);
         }
+        public async Task<GameDto> GameEnd(Guid id)
+        {
+            List<Game> game = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
+            Game g = game.Find(item => item.Id == id);
+            if(g.PointsEvil == 3)
+            {
+                
+                g.Status = GameStatus.EvilWin;
+            }
+            else if(g.PointsInnocent == 3)
+            {
+                bool AssassinGame = false;
+                g.Players.ForEach(x =>
+                {
+                    if (x.RoleId == GameRole.Assassin)
+                    {
+                        AssassinGame = true;
+                    }
+                });
+                if (AssassinGame) g.Status = GameStatus.AssassinTurn;
+                else g.Status = GameStatus.GoodWin;
+            }
+            return ObjectMapper.Map<GameDto>(g);
+        }
+        public async Task Assassinate(Guid GameId, Guid PlayerId)
+        {
+            List<Game> game = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
+            Game g = game.Find(item => item.Id == GameId);
+            Player p = await _playerRepository.GetAsync(PlayerId);
+            if (p.RoleId == GameRole.Merlin) g.Status = GameStatus.EvilWin;
+        }
         public async Task<GameDto> AssertRoles(Guid id, List<string> rollene,int minions)
         {
             List<Game> game = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
