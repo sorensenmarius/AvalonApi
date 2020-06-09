@@ -15,3 +15,4 @@
 5. Choose MultiplayerAvalon.EntityFrameworkCore at the top of the Package Manager Console
 6. Run "Update-Database" in the Package Manager Console
 7. The database should now be setup and usable in SSMS
+ 
