@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MultiplayerAvalon.EntityFrameworkCore;
 
 namespace MultiplayerAvalon.Migrations
 {
     [DbContext(typeof(MultiplayerAvalonDbContext))]
-    partial class MultiplayerAvalonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200608192001_Tester")]
+    partial class Tester
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1311,6 +1313,26 @@ namespace MultiplayerAvalon.Migrations
                     b.ToTable("AbpWebhookSubscriptions");
                 });
 
+            modelBuilder.Entity("MultiplayerAvalon.AppDomain.GameRoles.Roles", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsEvil")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleInfo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("MultiplayerAvalon.AppDomain.Games.Game", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1359,24 +1381,18 @@ namespace MultiplayerAvalon.Migrations
                     b.Property<Guid?>("GameId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsEvil")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
-                    b.Property<int>("RoleId")
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<string>("RoleInfo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("RoundId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TrueRoleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -1384,6 +1400,8 @@ namespace MultiplayerAvalon.Migrations
                     b.HasIndex("GameId");
 
                     b.HasIndex("RoundId");
+
+                    b.HasIndex("TrueRoleId");
 
                     b.ToTable("Players");
                 });
@@ -1870,6 +1888,10 @@ namespace MultiplayerAvalon.Migrations
                     b.HasOne("MultiplayerAvalon.AppDomain.Rounds.Round", null)
                         .WithMany("CurrentTeam")
                         .HasForeignKey("RoundId");
+
+                    b.HasOne("MultiplayerAvalon.AppDomain.GameRoles.Roles", "TrueRole")
+                        .WithMany()
+                        .HasForeignKey("TrueRoleId");
                 });
 
             modelBuilder.Entity("MultiplayerAvalon.Authorization.Roles.Role", b =>

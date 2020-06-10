@@ -12,6 +12,10 @@ namespace MultiplayerAvalon.AppDomain.Players
         [Required]
         [StringLength(64)]
         public string Name { get; set; }
-        public GameRole Role {get; set;}
+        public GameRole RoleId {get; set;}
+        public string RoleInfo { get; set; }
+        public string RoleName { get; set; }
+        public bool IsEvil { get; set; }
+
     }
 }
