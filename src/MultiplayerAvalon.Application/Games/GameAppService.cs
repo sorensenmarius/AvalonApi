@@ -36,7 +36,7 @@ namespace MultiplayerAvalon.Games
         /// <returns></returns>
         public async Task<GameDto> GetAsync(Guid id)
         {
-            Game g = await _gameRepository.GetAsync(id);
+            Game g = await _gameRepository.GetAll().Include(g => g.Players).FirstOrDefaultAsync(p => p.Id == id);
             return ObjectMapper.Map<GameDto>(g);
         }
         public async Task<GameDto> StartGame(Guid id, List<string> rollene, int minions)
