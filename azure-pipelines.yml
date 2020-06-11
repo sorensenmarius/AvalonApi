@@ -7,28 +7,34 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-latest'
-
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
+  vmImage: windows-latest
 steps:
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
+- task: NuGetCommand@2  
+  displayName: 'Restore nuget packages' 
+- task: MSBuild@1
+  displayName: 'Build the project'
+- task: DotNetCoreCLI@2
+  displayName: 'Initialize EntityFrameworkCore'
   inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
+    command: custom
+    custom: tool
+    arguments: 'install --global dotnet-ef'
+- task: DotNetCoreCLI@2
+  displayName: 'Create migration'
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
+    command: custom
+    custom: ef
+    arguments: 'migrations script -i -o migration.sql' 
+- task: SqlAzureDacpacDeployment@1
+  displayName: Install the database
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    azureSubscription: '<Azure service connection>'
+    AuthenticationType: 'server'
+    ServerName: 'multiplayeravalondb.database.windows.net'
+    DatabaseName: 'MultiplayerAvalonDb'
+    SqlUsername: 'dbadmin'
+    SqlPassword: 'Avalon2020'
+    deployType: 'DacpacTask'
+    DeploymentAction: 'Publish'
+    DacpacFile: 'migration.sql'
+    IpDetectionMethod: 'AutoDetect'
