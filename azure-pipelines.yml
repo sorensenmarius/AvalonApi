@@ -24,7 +24,7 @@ steps:
   inputs:
     command: custom
     custom: ef
-    arguments: 'migrations script --verbose --project "$(BuildSourcesDirectory)\MultiplayerAvalon" -i -o migration.sql' 
+    arguments: 'migrations script --verbose --project "src\MultiplayerAvalon.EntityFrameworkCore\MultiplayerAvalon.MultiplayerAvalon.EntityFrameworkCore.csproj" -i -o migration.sql' 
 
 - task: SqlAzureDacpacDeployment@1
   displayName: Install the database
