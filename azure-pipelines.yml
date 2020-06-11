@@ -25,10 +25,11 @@ steps:
     command: custom
     custom: ef
     arguments: 'migrations script -i -o migration.sql' 
+
 - task: SqlAzureDacpacDeployment@1
   displayName: Install the database
   inputs:
-    azureSubscription: '<Azure service connection>'
+    azureSubscription: 'Avalon Service Connection'
     AuthenticationType: 'server'
     ServerName: 'multiplayeravalondb.database.windows.net'
     DatabaseName: 'MultiplayerAvalonDb'
