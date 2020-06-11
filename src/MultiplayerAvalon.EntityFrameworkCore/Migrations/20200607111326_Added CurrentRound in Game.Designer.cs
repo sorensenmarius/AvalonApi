@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MultiplayerAvalon.EntityFrameworkCore;
 
 namespace MultiplayerAvalon.Migrations
 {
     [DbContext(typeof(MultiplayerAvalonDbContext))]
-    partial class MultiplayerAvalonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200607111326_Added CurrentRound in Game")]
+    partial class AddedCurrentRoundinGame
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1320,30 +1322,16 @@ namespace MultiplayerAvalon.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("CurrentPlayerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("CurrentRoundId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("JoinCode")
                         .HasColumnType("int");
 
-                    b.Property<int>("PointsEvil")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PointsInnocent")
-                        .HasColumnType("int");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("counter")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CurrentPlayerId");
 
                     b.HasIndex("CurrentRoundId");
 
@@ -1359,24 +1347,18 @@ namespace MultiplayerAvalon.Migrations
                     b.Property<Guid?>("GameId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsEvil")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
-                    b.Property<int>("RoleId")
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<string>("RoleInfo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("RoundId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("RoundId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -1384,6 +1366,8 @@ namespace MultiplayerAvalon.Migrations
                     b.HasIndex("GameId");
 
                     b.HasIndex("RoundId");
+
+                    b.HasIndex("RoundId1");
 
                     b.ToTable("Players");
                 });
@@ -1397,22 +1381,16 @@ namespace MultiplayerAvalon.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FailedTeams")
+                    b.Property<int>("ExpeditionResultVote")
                         .HasColumnType("int");
 
-                    b.Property<int>("MissionVoteBad")
+                    b.Property<int>("ExpeditionVote")
                         .HasColumnType("int");
 
-                    b.Property<int>("MissionVoteGood")
+                    b.Property<int>("RoundId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VotesAgainstTeam")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VotesForTeam")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -1852,10 +1830,6 @@ namespace MultiplayerAvalon.Migrations
 
             modelBuilder.Entity("MultiplayerAvalon.AppDomain.Games.Game", b =>
                 {
-                    b.HasOne("MultiplayerAvalon.AppDomain.Players.Player", "CurrentPlayer")
-                        .WithMany()
-                        .HasForeignKey("CurrentPlayerId");
-
                     b.HasOne("MultiplayerAvalon.AppDomain.Rounds.Round", "CurrentRound")
                         .WithMany()
                         .HasForeignKey("CurrentRoundId");
@@ -1870,6 +1844,10 @@ namespace MultiplayerAvalon.Migrations
                     b.HasOne("MultiplayerAvalon.AppDomain.Rounds.Round", null)
                         .WithMany("CurrentTeam")
                         .HasForeignKey("RoundId");
+
+                    b.HasOne("MultiplayerAvalon.AppDomain.Rounds.Round", null)
+                        .WithMany("Players")
+                        .HasForeignKey("RoundId1");
                 });
 
             modelBuilder.Entity("MultiplayerAvalon.Authorization.Roles.Role", b =>

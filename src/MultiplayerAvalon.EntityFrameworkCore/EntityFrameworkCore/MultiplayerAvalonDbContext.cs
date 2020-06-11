@@ -5,6 +5,8 @@ using MultiplayerAvalon.Authorization.Users;
 using MultiplayerAvalon.MultiTenancy;
 using MultiplayerAvalon.AppDomain.Games;
 using MultiplayerAvalon.AppDomain.Players;
+using MultiplayerAvalon.AppDomain.Rounds;
+using MultiplayerAvalon.AppDomain.GameRoles;
 
 namespace MultiplayerAvalon.EntityFrameworkCore
 {
@@ -13,7 +15,7 @@ namespace MultiplayerAvalon.EntityFrameworkCore
         /* Define a DbSet for each entity of the application */
         public DbSet<Game> Games { get; set; }
         public DbSet<Player> Players { get; set; }
-
+        public DbSet<Round> Rounds { get; set; }
         public MultiplayerAvalonDbContext(DbContextOptions<MultiplayerAvalonDbContext> options)
             : base(options)
         {

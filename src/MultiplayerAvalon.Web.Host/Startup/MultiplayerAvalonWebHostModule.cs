@@ -3,11 +3,12 @@ using Microsoft.Extensions.Configuration;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using MultiplayerAvalon.Configuration;
+using Abp.AspNetCore.SignalR;
 
 namespace MultiplayerAvalon.Web.Host.Startup
 {
-    [DependsOn(
-       typeof(MultiplayerAvalonWebCoreModule))]
+    [DependsOn(typeof(AbpAspNetCoreSignalRModule))]
+    [DependsOn(typeof(MultiplayerAvalonWebCoreModule))]
     public class MultiplayerAvalonWebHostModule: AbpModule
     {
         private readonly IWebHostEnvironment _env;
