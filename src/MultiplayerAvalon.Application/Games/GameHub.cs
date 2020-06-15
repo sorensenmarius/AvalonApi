@@ -7,12 +7,6 @@ namespace MultiplayerAvalon.Games
 {
     public class GameHub : Hub
     {
-        public async Task SendMessage(Guid userId, string message)
-        {
-            System.Diagnostics.Debug.WriteLine(message);
-            await Clients.All.SendAsync("RecieveMessage", userId, message);
-        }
-
         /// <summary>
         /// Adds the player to the correct group and notifies other players that a player has been added
         /// </summary>
