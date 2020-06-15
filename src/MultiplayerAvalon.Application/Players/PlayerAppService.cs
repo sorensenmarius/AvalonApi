@@ -22,14 +22,18 @@ namespace MultiplayerAvalon.Players
             _gameRepository = gameRepository;
             _playerRepository = playerRepository;
         }
-        public async Task<GameDto> CreateAsync(CreatePlayerDto model)
+        public async Task<GamePlayerDto> CreateAsync(CreatePlayerDto model)
         {
             Player p = ObjectMapper.Map<Player>(model);
+            Guid pId = await _playerRepository.InsertAndGetIdAsync(p);
+            p.Id = pId;
             List<Game> games = await _gameRepository.GetAllListAsync(item => item.JoinCode == model.JoinCode && item.Status == GameStatus.WaitingForPlayers);
             Game g = games[0];
             g.Players.Add(p);
-            await _gameRepository.UpdateAsync(g);
-            return ObjectMapper.Map<GameDto>(g);
+            GamePlayerDto gp = new GamePlayerDto();
+            gp.Game = g;
+            gp.Player = p;
+            return gp;
         }
     }
 }

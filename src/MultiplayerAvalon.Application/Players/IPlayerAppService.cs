@@ -8,6 +8,6 @@ namespace MultiplayerAvalon.Players
     public interface IPlayerAppService : IApplicationService
     {
 
-        public Task<GameDto> CreateAsync(CreatePlayerDto model);
+        public Task<GamePlayerDto> CreateAsync(CreatePlayerDto model);
     }
 }
