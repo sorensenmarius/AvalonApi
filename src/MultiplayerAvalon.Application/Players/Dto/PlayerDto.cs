@@ -12,5 +12,8 @@ namespace MultiplayerAvalon.Players.Dto
         [Required]
         public string Name { get; set; }
         public GameRole Role { get; set; }
+        public string RoleInfo { get; set; }
+        public string RoleName { get; set; }
+        public bool IsEvil { get; set; }
     }
 }
