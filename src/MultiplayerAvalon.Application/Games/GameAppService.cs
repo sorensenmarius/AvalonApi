@@ -17,6 +17,7 @@ namespace MultiplayerAvalon.Games
     {
         private readonly IRepository<Game, Guid> _gameRepository;
         private readonly IRepository<Player, Guid> _playerRepository;
+        private int NmrEvils = 0;
         public GameAppService(
             IRepository<Game, Guid> gameRepository, 
             IRepository<Player, Guid> playerRepository
@@ -51,7 +52,8 @@ namespace MultiplayerAvalon.Games
             g.CurrentRound = r;
             g.CurrentPlayer = g.Players[0];
             g.Status = GameStatus.Playing;
-            await AssertRoles(id, rollene, minions);
+            int evils = HowManyEvils(g.Players.Count());
+            await AssertRoles(id, rollene, evils-minions);
             await _gameRepository.UpdateAsync(g);
             return ObjectMapper.Map<GameDto>(g);
         }
@@ -195,6 +197,11 @@ namespace MultiplayerAvalon.Games
                 if (x.IsEvil && x.RoleId != GameRole.Oberon) RoleInfo += x.RoleId.ToString() + ": " + x.Name + "    ";
             });
             return RoleInfo;
+        }
+        public int HowManyEvils(int HowManyPlayers)
+        {
+            int[,] HowManyGood_Evils = new int[2, 6] { { 3, 4, 4, 5, 6, 6 }, { 2, 2, 3, 3, 3, 4 } };
+            return HowManyGood_Evils[1, HowManyPlayers];
         }
     }
 }
