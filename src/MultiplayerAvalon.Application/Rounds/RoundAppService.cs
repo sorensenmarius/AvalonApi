@@ -5,6 +5,7 @@ using MultiplayerAvalon.AppDomain.Players;
 using MultiplayerAvalon.AppDomain.Rounds;
 using MultiplayerAvalon.Games.Dto;
 using MultiplayerAvalon.Players.Dto;
+using MultiplayerAvalon.Rounds.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,31 +28,34 @@ namespace MultiplayerAvalon.Rounds
             _gameRepository = gameRepository;
             _playerRepository = playerRepository;
         }
-        public async Task AddPlayerToTeam(Guid PlayerId, Guid GameId)
+        public async Task<RoundDto> AddPlayerToTeam(Guid PlayerId, Guid GameId)
         {
             Player p = await _playerRepository.GetAsync(PlayerId);
             List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound.CurrentTeam).ToListAsync();
             var game = g.Find(item => item.Id == GameId);
             game.CurrentRound.CurrentTeam.Add(p);
             await _gameRepository.UpdateAsync(game);
+            return ObjectMapper.Map<RoundDto>(game.CurrentRound);
         }
-        public async Task RemovePlayerFromTeam(Guid PlayerId, Guid GameId)
+        public async Task<RoundDto> RemovePlayerFromTeam(Guid PlayerId, Guid GameId)
         {
             Player p = await _playerRepository.GetAsync(PlayerId);
             List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound.CurrentTeam).ToListAsync();
             var game = g.Find(item => item.Id == GameId);
             game.CurrentRound.CurrentTeam.Remove(p);
             await _gameRepository.UpdateAsync(game);
+            return ObjectMapper.Map<RoundDto>(game.CurrentRound);
         }
-        public async Task VoteForTeam(Guid GameId, Guid PlayerId, bool Vote)
+        public async Task<RoundDto> VoteForTeam(Guid GameId, Guid PlayerId, bool Vote)
         {
             Player p = await _playerRepository.GetAsync(PlayerId);
             List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound).ToListAsync();
             var game = g.Find(item => item.Id == GameId);
             if (Vote) game.CurrentRound.VotesForTeam++;
             await _gameRepository.UpdateAsync(game);
+            return ObjectMapper.Map<RoundDto>(game.CurrentRound);
         }
-        public async Task ExpeditonVote(Guid GameId, Guid PlayerId, bool Vote)
+        public async Task<RoundDto> ExpeditonVote(Guid GameId, Guid PlayerId, bool Vote)
         {
             Player p = await _playerRepository.GetAsync(PlayerId);
             List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound).ToListAsync();
@@ -59,8 +63,9 @@ namespace MultiplayerAvalon.Rounds
             if (Vote) game.CurrentRound.MissionVoteGood++;
             System.Diagnostics.Debug.WriteLine(game.CurrentRound.MissionVoteGood);
             await _gameRepository.UpdateAsync(game);
+            return ObjectMapper.Map<RoundDto>(game.CurrentRound);
         }
-        public async Task VoteForTeamResults(Guid GameId)
+        public async Task<RoundDto> VoteForTeamResults(Guid GameId)
         {
             List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound).ToListAsync();
             List<Game> GwithPlayers = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
@@ -76,8 +81,9 @@ namespace MultiplayerAvalon.Rounds
             else game.CurrentRound.Status = RoundStatus.TeamApproved;
             game.CurrentPlayer = GPlayers.Players[game.counter++ % GPlayers.Players.Count()]; // Neste spiller uansett om den går gjennom eller ikke. 
             await _gameRepository.UpdateAsync(game);
+            return ObjectMapper.Map<RoundDto>(game.CurrentRound);
         }
-        public async Task ExpeditionResults(Guid GameId)
+        public async Task<RoundDto> ExpeditionResults(Guid GameId)
         {
             List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound).ToListAsync();
             List<Game> GwithPlayers = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
@@ -97,6 +103,7 @@ namespace MultiplayerAvalon.Rounds
             }
             System.Diagnostics.Debug.WriteLine(game.CurrentRound.Status);
             await _gameRepository.UpdateAsync(game);
+            return ObjectMapper.Map<RoundDto>(game.CurrentRound);
         }
     }
 }
