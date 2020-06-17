@@ -8,9 +8,9 @@ namespace MultiplayerAvalon.AppDomain.GameRoles
     {
         NotYetChosen = 0,
         Servant = 1,
-        Minion = 2,
-        Merlin = 3,
-        Percival = 4,
+        Merlin = 2,
+        Percival = 3,
+        Minion = 4,
         Morgana = 5,
         Mordred = 6,
         Assassin = 7,
