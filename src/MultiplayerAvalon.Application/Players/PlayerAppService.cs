@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using MultiplayerAvalon.AppDomain.Games;
 using MultiplayerAvalon.AppDomain.Players;
 using MultiplayerAvalon.Games.Dto;
@@ -27,9 +28,9 @@ namespace MultiplayerAvalon.Players
             Player p = ObjectMapper.Map<Player>(model);
             Guid pId = await _playerRepository.InsertAndGetIdAsync(p);
             p.Id = pId;
-            List<Game> games = await _gameRepository.GetAllListAsync(item => item.JoinCode == model.JoinCode && item.Status == GameStatus.WaitingForPlayers);
-            Game g = games[0];
+            Game g = await _gameRepository.GetAllIncluding(game => game.Players).Where(game => game.JoinCode == model.JoinCode && game.Status == GameStatus.WaitingForPlayers).FirstOrDefaultAsync();
             g.Players.Add(p);
+            await _gameRepository.UpdateAsync(g);
             GamePlayerDto gp = new GamePlayerDto();
             gp.Game = g;
             gp.Player = p;
