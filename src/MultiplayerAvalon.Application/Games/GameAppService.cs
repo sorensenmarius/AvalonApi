@@ -94,7 +94,7 @@ namespace MultiplayerAvalon.Games
             {
                 while (minions > 0) 
                 {
-                    rollene.Add("2");
+                    rollene.Add("4");
                     minions--;
                     System.Diagnostics.Debug.WriteLine("Adding minion");
                 }
