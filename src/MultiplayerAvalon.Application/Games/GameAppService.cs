@@ -201,7 +201,7 @@ namespace MultiplayerAvalon.Games
         public int HowManyEvils(int HowManyPlayers)
         {
             int[,] HowManyGood_Evils = new int[2, 6] { { 3, 4, 4, 5, 6, 6 }, { 2, 2, 3, 3, 3, 4 } };
-            return HowManyGood_Evils[1, HowManyPlayers];
+            return HowManyGood_Evils[1, HowManyPlayers-5];
         }
     }
 }
