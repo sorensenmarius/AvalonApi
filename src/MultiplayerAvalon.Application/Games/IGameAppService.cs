@@ -11,7 +11,7 @@ namespace MultiplayerAvalon.Games
     {
 
         public Task<GameDto> CreateAsync();
-        public Task<GameDto> StartGame(Guid id, List<string> roles,int Minions);
+        public Task<GameDto> StartGame(StartGameDto model);
         public Task<GameDto> GetAsync(Guid id);
     }
 }

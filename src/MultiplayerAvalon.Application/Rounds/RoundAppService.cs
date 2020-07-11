@@ -1,8 +1,10 @@
 ﻿using Abp.Domain.Repositories;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using MultiplayerAvalon.AppDomain.Games;
 using MultiplayerAvalon.AppDomain.Players;
 using MultiplayerAvalon.AppDomain.Rounds;
+using MultiplayerAvalon.Games;
 using MultiplayerAvalon.Games.Dto;
 using MultiplayerAvalon.Players.Dto;
 using MultiplayerAvalon.Rounds.Dto;
@@ -18,32 +20,38 @@ namespace MultiplayerAvalon.Rounds
         private readonly IRepository<Round, Guid> _roundRepository;
         private readonly IRepository<Game, Guid> _gameRepository;
         private readonly IRepository<Player, Guid> _playerRepository;
+        private readonly IHubContext<GameHub> _gameHub;
         public RoundAppService(
-           IRepository<Round, Guid> roundRepository,
-           IRepository<Game, Guid> gameRepository,
-           IRepository<Player, Guid> playerRepository
+            IRepository<Round, Guid> roundRepository,
+            IRepository<Game, Guid> gameRepository,
+            IRepository<Player, Guid> playerRepository,
+            IHubContext<GameHub> gameHub
+
           )
         {
             _roundRepository = roundRepository;
             _gameRepository = gameRepository;
             _playerRepository = playerRepository;
+            _gameHub = gameHub;
         }
-        public async Task<RoundDto> AddPlayerToTeam(Guid PlayerId, Guid GameId)
+        public async Task<RoundDto> AddPlayerToTeam(ChangeCurrentTeamDto model)
         {
-            Player p = await _playerRepository.GetAsync(PlayerId);
+            Player p = await _playerRepository.GetAsync(model.PlayerId);
             List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound.CurrentTeam).ToListAsync();
-            var game = g.Find(item => item.Id == GameId);
+            var game = g.Find(item => item.Id == model.GameId);
             game.CurrentRound.CurrentTeam.Add(p);
             await _gameRepository.UpdateAsync(game);
+            await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("GameUpdated");
             return ObjectMapper.Map<RoundDto>(game.CurrentRound);
         }
-        public async Task<RoundDto> RemovePlayerFromTeam(Guid PlayerId, Guid GameId)
+        public async Task<RoundDto> RemovePlayerFromTeam(ChangeCurrentTeamDto model)
         {
-            Player p = await _playerRepository.GetAsync(PlayerId);
+            Player p = await _playerRepository.GetAsync(model.PlayerId);
             List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound.CurrentTeam).ToListAsync();
-            var game = g.Find(item => item.Id == GameId);
+            var game = g.Find(item => item.Id == model.GameId);
             game.CurrentRound.CurrentTeam.Remove(p);
             await _gameRepository.UpdateAsync(game);
+            await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("GameUpdated");
             return ObjectMapper.Map<RoundDto>(game.CurrentRound);
         }
         public async Task<RoundDto> VoteForTeam(Guid GameId, Guid PlayerId, bool Vote)

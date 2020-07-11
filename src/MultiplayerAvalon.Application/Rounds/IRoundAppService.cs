@@ -15,8 +15,8 @@ namespace MultiplayerAvalon.Rounds
         public Task<RoundDto> ExpeditonVote(Guid GameId, Guid PlayerId, bool Vote);
         public Task<RoundDto> VoteForTeamResults(Guid GameId);
         public Task<RoundDto> ExpeditionResults(Guid GameId);
-        public Task<RoundDto> AddPlayerToTeam(Guid PlayerId, Guid GameId);
-        public Task<RoundDto> RemovePlayerFromTeam(Guid PlayerId, Guid GameId);
+        public Task<RoundDto> AddPlayerToTeam(ChangeCurrentTeamDto model);
+        public Task<RoundDto> RemovePlayerFromTeam(ChangeCurrentTeamDto model);
         public Task<HowManyPlayerHelper> HowManyPlayers(int RoundNmr, int TotalNmrPlayers);
     }
 }

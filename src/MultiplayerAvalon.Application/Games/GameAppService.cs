@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Repositories;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using MultiplayerAvalon.AppDomain.GameRoles;
 using MultiplayerAvalon.AppDomain.Games;
@@ -17,15 +18,17 @@ namespace MultiplayerAvalon.Games
     {
         private readonly IRepository<Game, Guid> _gameRepository;
         private readonly IRepository<Player, Guid> _playerRepository;
+        private readonly IHubContext<GameHub> _gameHub;
         private int NmrEvils = 0;
         public GameAppService(
             IRepository<Game, Guid> gameRepository, 
-            IRepository<Player, Guid> playerRepository
+            IRepository<Player, Guid> playerRepository,
+            IHubContext<GameHub> gameHub
             )
         {
             _gameRepository = gameRepository;
             _playerRepository = playerRepository;
-
+            _gameHub = gameHub;
         }
         public async Task<GameDto> CreateAsync()
         {
@@ -41,20 +44,25 @@ namespace MultiplayerAvalon.Games
         /// <returns></returns>
         public async Task<GameDto> GetAsync(Guid id)
         {
-            Game g = await _gameRepository.GetAll().Include(g => g.Players).FirstOrDefaultAsync(p => p.Id == id);
+            Game g = await _gameRepository.GetAll()
+                .Include("Players")
+                .Include("CurrentPlayer")
+                .Include("CurrentRound.CurrentTeam")
+                .FirstOrDefaultAsync(p => p.Id == id);
             return ObjectMapper.Map<GameDto>(g);
         }
-        public async Task<GameDto> StartGame(Guid id, List<string> rollene, int minions)
+        public async Task<GameDto> StartGame(StartGameDto model)
         {
             List<Game> game = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
-            Game g = game.Find(item => item.Id == id);
+            Game g = game.Find(item => item.Id == model.Id);
             Round r = await CreateNewRound();
             g.CurrentRound = r;
             g.CurrentPlayer = g.Players[0];
             g.Status = GameStatus.Playing;
-            int evils = HowManyEvils(g.Players.Count());
-            await AssertRoles(id, rollene, evils-minions);
+            int evils = GetHowManyEvils(g.Players.Count());
+            await AssertRoles(model.Id, model.Roles, evils-model.Minions);
             await _gameRepository.UpdateAsync(g);
+            await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("GameUpdated");
             return ObjectMapper.Map<GameDto>(g);
         }
         public async Task<GameDto> GameEnd(Guid id)
@@ -198,7 +206,7 @@ namespace MultiplayerAvalon.Games
             });
             return RoleInfo;
         }
-        public int HowManyEvils(int HowManyPlayers)
+        public int GetHowManyEvils(int HowManyPlayers)
         {
             int[,] HowManyGood_Evils = new int[2, 6] { { 3, 4, 4, 5, 6, 6 }, { 2, 2, 3, 3, 3, 4 } };
             return HowManyGood_Evils[1, HowManyPlayers-5];
