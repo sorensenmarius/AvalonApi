@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MultiplayerAvalon.Rounds.Dto
 {
-    public class ChangeCurrentTeamDto
+    public class GameAndPlayerIdDto
     {
         public Guid PlayerId { get; set; }
         public Guid GameId { get; set; }

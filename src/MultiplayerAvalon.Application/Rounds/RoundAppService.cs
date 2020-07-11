@@ -34,7 +34,7 @@ namespace MultiplayerAvalon.Rounds
             _playerRepository = playerRepository;
             _gameHub = gameHub;
         }
-        public async Task<RoundDto> AddPlayerToTeam(ChangeCurrentTeamDto model)
+        public async Task<RoundDto> AddPlayerToTeam(GameAndPlayerIdDto model)
         {
             Player p = await _playerRepository.GetAsync(model.PlayerId);
             List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound.CurrentTeam).ToListAsync();
@@ -44,7 +44,7 @@ namespace MultiplayerAvalon.Rounds
             await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("GameUpdated");
             return ObjectMapper.Map<RoundDto>(game.CurrentRound);
         }
-        public async Task<RoundDto> RemovePlayerFromTeam(ChangeCurrentTeamDto model)
+        public async Task<RoundDto> RemovePlayerFromTeam(GameAndPlayerIdDto model)
         {
             Player p = await _playerRepository.GetAsync(model.PlayerId);
             List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound.CurrentTeam).ToListAsync();
@@ -112,6 +112,17 @@ namespace MultiplayerAvalon.Rounds
             System.Diagnostics.Debug.WriteLine(game.CurrentRound.Status);
             await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<RoundDto>(game.CurrentRound);
+        }
+        public async Task SubmitTeam(GameAndPlayerIdDto model)
+        {
+            // TODO - Handle team size. Throw error if incorrect team size
+            Game g = await _gameRepository.GetAll()
+                                        .Include("CurrentRound")
+                                        .FirstOrDefaultAsync(game => game.Id == model.GameId);
+            var round = await _roundRepository.GetAsync(g.CurrentRound.Id);
+            round.Status = RoundStatus.VotingForTeam;
+            await _roundRepository.UpdateAsync(round);
+            await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("GameUpdated");
         }
         public async Task<HowManyPlayerHelper> HowManyPlayers(int RoundNmr, int TotalPlayers)
         {
