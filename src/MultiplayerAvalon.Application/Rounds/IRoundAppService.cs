@@ -11,8 +11,8 @@ namespace MultiplayerAvalon.Rounds
 {
     public interface IRoundAppService
     {
-        public Task<RoundDto> VoteForTeam(Guid GameId, Guid PlayerId, bool Vote);
-        public Task<RoundDto> ExpeditonVote(Guid GameId, Guid PlayerId, bool Vote);
+        public Task<RoundDto> VoteForTeam(VoteDto model);
+        public Task<RoundDto> ExpeditonVote(VoteDto model);
         public Task<RoundDto> VoteForTeamResults(Guid GameId);
         public Task<RoundDto> ExpeditionResults(Guid GameId);
         public Task<RoundDto> AddPlayerToTeam(GameAndPlayerIdDto model);
