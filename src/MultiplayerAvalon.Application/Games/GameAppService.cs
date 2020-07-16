@@ -1,11 +1,13 @@
 ﻿using Abp.Domain.Repositories;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using MultiplayerAvalon.AppDomain.GameRoles;
 using MultiplayerAvalon.AppDomain.Games;
 using MultiplayerAvalon.AppDomain.Players;
 using MultiplayerAvalon.AppDomain.Rounds;
 using MultiplayerAvalon.Games.Dto;
+using MultiplayerAvalon.Rounds.Dto;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -55,26 +57,21 @@ namespace MultiplayerAvalon.Games
         {
             List<Game> game = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
             Game g = game.Find(item => item.Id == model.Id);
-            Round r = await CreateNewRound();
+            Round r = new Round();
             g.CurrentRound = r;
             g.CurrentPlayer = g.Players[0];
             g.Status = GameStatus.Playing;
             int evils = GetHowManyEvils(g.Players.Count());
             await AssertRoles(model.Id, model.Roles, evils-model.Minions);
             await _gameRepository.UpdateAsync(g);
-            await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("GameUpdated");
+            await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
             return ObjectMapper.Map<GameDto>(g);
         }
-        public async Task<GameDto> GameEnd(Guid id)
+        public async Task GameEnd(Guid id)
         {
-            List<Game> game = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
-            Game g = game.Find(item => item.Id == id);
-            if(g.PointsEvil == 3)
-            {
-                
-                g.Status = GameStatus.EvilWin;
-            }
-            else if(g.PointsInnocent == 3)
+            Game g = _gameRepository.GetAll().Include("Players").Include("PreviousRounds").FirstOrDefault(game => game.Id == id);
+            g.Status = GameStatus.Ended;
+            if(g.PointsEvil < 3)
             {
                 bool AssassinGame = false;
                 g.Players.ForEach(x =>
@@ -84,17 +81,19 @@ namespace MultiplayerAvalon.Games
                         AssassinGame = true;
                     }
                 });
-                if (AssassinGame) g.Status = GameStatus.AssassinTurn;
-                else g.Status = GameStatus.GoodWin;
+                if(AssassinGame)
+                {
+                    g.Status = GameStatus.AssassinTurn;
+                }
             }
-            return ObjectMapper.Map<GameDto>(g);
+            await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
         }
         public async Task Assassinate(Guid GameId, Guid PlayerId)
         {
-            List<Game> game = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
-            Game g = game.Find(item => item.Id == GameId);
+            Game g = _gameRepository.GetAll().Include("Players").Include("PreviousRounds").FirstOrDefault(game => game.Id == GameId);
             Player p = await _playerRepository.GetAsync(PlayerId);
-            if (p.RoleId == GameRole.Merlin) g.Status = GameStatus.EvilWin;
+            if (p.RoleId == GameRole.Merlin) g.PointsEvil += 100;
+            await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
         }
         public async Task<GameDto> AssertRoles(Guid id, List<string> rollene,int minions)
         {
@@ -111,7 +110,7 @@ namespace MultiplayerAvalon.Games
                 if(rollene.Count() < g.Players.Count())
                 {
                     rollene.Add("1");
-                    System.Diagnostics.Debug.WriteLine("Adding ¨Servant");
+                    System.Diagnostics.Debug.WriteLine("Adding servant");
                 } 
             }
             List<string> roles = ShuffleNew(rollene);
@@ -126,16 +125,24 @@ namespace MultiplayerAvalon.Games
                 else player.IsEvil = false;
                 x++;
             }
-            g.Players.ForEach(async x => x.RoleInfo = await ReturnInfo(g,x.RoleId,x));
+            g.Players.ForEach(x => x.RoleInfo = ReturnInfo(g,x.RoleId,x));
             await _gameRepository.UpdateAsync(g);
             return ObjectMapper.Map<GameDto>(g);
         }
-        public async Task<Round> CreateNewRound()
+        public async Task NextRound(GameAndPlayerIdDto model)
         {
-            Round r = new Round();
-            r.CurrentTeam = new List<Player>();
-            return r;
+            Game g = _gameRepository.GetAll().Include("CurrentRound").Include("Players").FirstOrDefault(game => game.Id == model.GameId);
+            if(g.PointsEvil >= 3 || g.PointsInnocent >= 3)
+            {
+                g.Status = GameStatus.Ended;
+            } else
+            {
+                g.PreviousRounds.Add(g.CurrentRound);
+                g.CurrentRound = new Round();
+            }
+            await _gameRepository.UpdateAsync(g);
         }
+
         public List<Player> ShufflePlayers(List<Player> items)
         {
             return items.Distinct().OrderBy(x => System.Guid.NewGuid().ToString()).ToList();
@@ -154,7 +161,7 @@ namespace MultiplayerAvalon.Games
             }
             return list;
         }
-        public async Task<string> ReturnInfo(Game game, GameRole PlayerRole,Player p)
+        public string ReturnInfo(Game game, GameRole PlayerRole,Player p)
         {
             string RoleInfo = "Your role is: " + PlayerRole.ToString();
             switch (PlayerRole)
