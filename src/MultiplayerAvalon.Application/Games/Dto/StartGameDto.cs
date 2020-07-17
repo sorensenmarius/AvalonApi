@@ -8,6 +8,5 @@ namespace MultiplayerAvalon.Games.Dto
     {
         public Guid Id { get; set; }
         public List<string> Roles { get; set; }
-        public int Minions { get; set; }
     }
 }
