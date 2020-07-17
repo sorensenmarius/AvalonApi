@@ -8,9 +8,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MultiplayerAvalon.AppDomain.Rounds
 {
     [Table("Rounds")]
-
     public class Round : Entity<Guid>, IHasCreationTime
     {
+        public Round()
+        {
+            CurrentTeam = new List<Player>();
+            Status = RoundStatus.SelectingTeam;
+            CreationTime = DateTime.Now;
+        }
         [Required]
         public int FailedTeams { get; set; }
         public List<Player> CurrentTeam { get; set; }

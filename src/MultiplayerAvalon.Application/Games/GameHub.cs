@@ -12,11 +12,17 @@ namespace MultiplayerAvalon.Games
         /// </summary>
         /// <param name="gameId">Newly joined users id</param>
         /// <returns></returns>
-        public async Task JoinGameGroup(Guid gameId)
+        public async Task JoinAllGroup(Guid gameId)
         {
             string gId = gameId.ToString();
             await Groups.AddToGroupAsync(Context.ConnectionId, gId);
-            await Clients.OthersInGroup(gId).SendAsync("GameUpdated");
+            await Clients.Group(gId).SendAsync("UpdateAll");
+        }
+
+        public async Task JoinHostGroup(Guid gameId)
+        {
+            string gId = gameId.ToString();
+            await Groups.AddToGroupAsync(Context.ConnectionId, "H-" + gId);
         }
     }
 }

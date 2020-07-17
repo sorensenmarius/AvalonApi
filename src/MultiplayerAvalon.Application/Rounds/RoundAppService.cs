@@ -1,6 +1,8 @@
 ﻿using Abp.Domain.Repositories;
+using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using MultiplayerAvalon.AppDomain.Games;
 using MultiplayerAvalon.AppDomain.Players;
 using MultiplayerAvalon.AppDomain.Rounds;
@@ -34,84 +36,105 @@ namespace MultiplayerAvalon.Rounds
             _playerRepository = playerRepository;
             _gameHub = gameHub;
         }
-        public async Task<RoundDto> AddPlayerToTeam(GameAndPlayerIdDto model)
+
+        public async Task SetTeam(SetTeamDto model)
         {
-            Player p = await _playerRepository.GetAsync(model.PlayerId);
-            List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound.CurrentTeam).ToListAsync();
-            var game = g.Find(item => item.Id == model.GameId);
-            game.CurrentRound.CurrentTeam.Add(p);
-            await _gameRepository.UpdateAsync(game);
-            await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("GameUpdated");
-            return ObjectMapper.Map<RoundDto>(game.CurrentRound);
-        }
-        public async Task<RoundDto> RemovePlayerFromTeam(GameAndPlayerIdDto model)
-        {
-            Player p = await _playerRepository.GetAsync(model.PlayerId);
-            List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound.CurrentTeam).ToListAsync();
-            var game = g.Find(item => item.Id == model.GameId);
-            game.CurrentRound.CurrentTeam.Remove(p);
-            await _gameRepository.UpdateAsync(game);
-            await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("GameUpdated");
-            return ObjectMapper.Map<RoundDto>(game.CurrentRound);
-        }
-        public async Task<RoundDto> VoteForTeam(Guid GameId, Guid PlayerId, bool Vote)
-        {
-            Player p = await _playerRepository.GetAsync(PlayerId);
-            List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound).ToListAsync();
-            var game = g.Find(item => item.Id == GameId);
-            if (Vote) game.CurrentRound.VotesForTeam++;
-            await _gameRepository.UpdateAsync(game);
-            return ObjectMapper.Map<RoundDto>(game.CurrentRound);
-        }
-        public async Task<RoundDto> ExpeditonVote(Guid GameId, Guid PlayerId, bool Vote)
-        {
-            Player p = await _playerRepository.GetAsync(PlayerId);
-            List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound).ToListAsync();
-            var game = g.Find(item => item.Id == GameId);
-            if (Vote) game.CurrentRound.MissionVoteGood++;
-            System.Diagnostics.Debug.WriteLine(game.CurrentRound.MissionVoteGood);
-            await _gameRepository.UpdateAsync(game);
-            return ObjectMapper.Map<RoundDto>(game.CurrentRound);
-        }
-        public async Task<RoundDto> VoteForTeamResults(Guid GameId)
-        {
-            List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound).ToListAsync();
-            List<Game> GwithPlayers = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
-            var game = g.Find(item => item.Id == GameId);
-            var GPlayers = GwithPlayers.Find(item => item.Id == GameId);
-            var Votesfor = game.CurrentRound.VotesForTeam;
-            game.CurrentRound.VotesAgainstTeam = game.Players.Count() - game.CurrentRound.VotesForTeam;
-            if (Votesfor <= GPlayers.Players.Count() / 2)
+            Game g = _gameRepository.GetAll().Include("CurrentRound.CurrentTeam").FirstOrDefault(g => g.Id == model.GameId);
+            List<Player> team = new List<Player>();
+            g.CurrentRound.CurrentTeam.RemoveAll(player => true);
+            foreach (Guid playerId in model.CurrentTeam)
             {
-                game.CurrentRound.Status = RoundStatus.TeamDenied; // istedenfor dette, bare gå rett på neste spiller. 
-                game.CurrentRound.FailedTeams++;
+                team.Add(await _playerRepository.GetAsync(playerId));
             }
-            else game.CurrentRound.Status = RoundStatus.TeamApproved;
-            game.CurrentPlayer = GPlayers.Players[game.counter++ % GPlayers.Players.Count()]; // Neste spiller uansett om den går gjennom eller ikke. 
-            await _gameRepository.UpdateAsync(game);
-            return ObjectMapper.Map<RoundDto>(game.CurrentRound);
+            g.CurrentRound.CurrentTeam = team;
+            await _gameRepository.UpdateAsync(g);
+            await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateHost");
         }
-        public async Task<RoundDto> ExpeditionResults(Guid GameId)
+        public async Task VoteForTeam(VoteDto model)
         {
-            List<Game> g = await _gameRepository.GetAllIncluding(game => game.CurrentRound).ToListAsync();
-            List<Game> GwithPlayers = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
-            var game = g.Find(item => item.Id == GameId);
-            var GPlayers = GwithPlayers.Find(item => item.Id == GameId);
-            var statusen = GPlayers.Players.Count() - game.CurrentRound.MissionVoteGood;
-            game.CurrentRound.MissionVoteBad = GPlayers.Players.Count() - game.CurrentRound.MissionVoteGood;
-            if (statusen < GPlayers.Players.Count())
+            Game g = _gameRepository.GetAll().Include("Players").Include("CurrentRound").FirstOrDefault(game => game.Id == model.GameId);
+            if (model.Vote)
             {
-                game.CurrentRound.Status = RoundStatus.MissionFailed;
-                game.PointsEvil++;
+                g.CurrentRound.VotesForTeam++;
+            } else
+            {
+                g.CurrentRound.VotesAgainstTeam++;
+            }
+            await _gameRepository.UpdateAsync(g);
+            if (g.CurrentRound.VotesForTeam + g.CurrentRound.VotesAgainstTeam >= g.Players.Count)
+            {
+                await VoteForTeamResults(g);
+            } else
+            {
+                await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateHost");
+            }
+        }
+        public async Task ExpeditonVote(VoteDto model)
+        {
+            Player p = await _playerRepository.GetAsync(model.PlayerId);
+            Game g = _gameRepository.GetAll().Include("CurrentRound.CurrentTeam").FirstOrDefault(game => game.Id == model.GameId);
+            if (model.Vote)
+            {
+                g.CurrentRound.MissionVoteGood++;
             }
             else
             {
-                game.CurrentRound.Status = RoundStatus.MissionSuccess;
-                game.PointsInnocent++;
+                g.CurrentRound.MissionVoteBad++;
             }
-            System.Diagnostics.Debug.WriteLine(game.CurrentRound.Status);
-            await _gameRepository.UpdateAsync(game);
-            return ObjectMapper.Map<RoundDto>(game.CurrentRound);
+            if (g.CurrentRound.MissionVoteGood + g.CurrentRound.MissionVoteBad >= g.CurrentRound.CurrentTeam.Count)
+            {
+                await ExpeditionResults(g);
+            }
+            else
+            {
+                await _gameRepository.UpdateAsync(g);
+                await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateHost");
+            }
+        }
+
+        public async Task SetRoundStatus(SetRoundStatusDto model)
+        {
+            var g = _gameRepository.GetAll().Include("CurrentRound").FirstOrDefault(game => game.Id == model.GameId);
+            g.CurrentRound.Status = model.Status;
+            if (model.Status == RoundStatus.SelectingTeam)
+            {
+                g.CurrentRound.VotesForTeam = 0;
+                g.CurrentRound.VotesAgainstTeam = 0;
+            }
+            await _gameRepository.UpdateAsync(g);
+            await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateAll");
+        }
+        
+        private async Task VoteForTeamResults(Game g)
+        {
+            var Votesfor = g.CurrentRound.VotesForTeam;
+            if (Votesfor <= g.Players.Count() / 2)
+            {
+                g.CurrentRound.Status = RoundStatus.TeamDenied;
+                g.CurrentRound.FailedTeams++;
+            } else
+            {
+                g.CurrentRound.Status = RoundStatus.TeamApproved;
+            }
+            g.counter++;
+            g.CurrentPlayer = g.Players[g.counter % g.Players.Count()];
+            await _gameRepository.UpdateAsync(g);
+            await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
+        }
+        private async Task ExpeditionResults(Game g)
+        {
+            if (g.CurrentRound.MissionVoteBad > 0)
+            {
+                g.CurrentRound.Status = RoundStatus.MissionFailed;
+                g.PointsEvil++;
+            }
+            else
+            {
+                g.CurrentRound.Status = RoundStatus.MissionSuccess;
+                g.PointsInnocent++;
+            }
+            await _gameRepository.UpdateAsync(g);
+            await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
         }
         public async Task SubmitTeam(GameAndPlayerIdDto model)
         {
@@ -122,9 +145,9 @@ namespace MultiplayerAvalon.Rounds
             var round = await _roundRepository.GetAsync(g.CurrentRound.Id);
             round.Status = RoundStatus.VotingForTeam;
             await _roundRepository.UpdateAsync(round);
-            await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("GameUpdated");
+            await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateAll");
         }
-        public async Task<HowManyPlayerHelper> HowManyPlayers(int RoundNmr, int TotalPlayers)
+        public HowManyPlayerHelper HowManyPlayers(int RoundNmr, int TotalPlayers)
         {
             bool DoubleRound = false;
             int[,] NmrPlayerBasedOnRound = new int[5,6] { { 2, 2, 2, 3, 3, 3 }, { 3, 3, 3, 4, 4, 4 }, { 2, 4, 3, 4, 4, 4 }, { 3, 3, 4, 5, 5, 5 }, { 3, 4, 4, 5, 5, 5 } };

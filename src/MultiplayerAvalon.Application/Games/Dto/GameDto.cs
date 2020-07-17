@@ -17,5 +17,7 @@ namespace MultiplayerAvalon.Games.Dto
         public DateTime CreationTime { get; set; }
         public Round CurrentRound { get; set; }
         public Player CurrentPlayer { get; set; }
+        public int PointsInnocent { get; set; }
+        public int PointsEvil { get; set; }
     }
 }
