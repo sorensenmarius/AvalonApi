@@ -116,7 +116,8 @@ namespace MultiplayerAvalon.Rounds
             {
                 g.CurrentRound.Status = RoundStatus.TeamApproved;
             }
-            g.CurrentPlayer = g.Players[g.counter++ % g.Players.Count()];
+            g.counter++;
+            g.CurrentPlayer = g.Players[g.counter % g.Players.Count()];
             await _gameRepository.UpdateAsync(g);
             await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
         }

@@ -131,7 +131,7 @@ namespace MultiplayerAvalon.Games
         }
         public async Task NextRound(GameAndPlayerIdDto model)
         {
-            Game g = _gameRepository.GetAll().Include("CurrentRound").Include("Players").FirstOrDefault(game => game.Id == model.GameId);
+            Game g = _gameRepository.GetAll().Include("CurrentRound").Include("Players").Include("PreviousRounds").FirstOrDefault(game => game.Id == model.GameId);
             if(g.PointsEvil >= 3 || g.PointsInnocent >= 3)
             {
                 g.Status = GameStatus.Ended;
@@ -141,6 +141,7 @@ namespace MultiplayerAvalon.Games
                 g.CurrentRound = new Round();
             }
             await _gameRepository.UpdateAsync(g);
+            await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
         }
 
         public List<Player> ShufflePlayers(List<Player> items)
