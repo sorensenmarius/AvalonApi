@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MultiplayerAvalon.EntityFrameworkCore;
 
 namespace MultiplayerAvalon.Migrations
 {
     [DbContext(typeof(MultiplayerAvalonDbContext))]
-    partial class MultiplayerAvalonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200718090534_Added_Order_To_Players")]
+    partial class Added_Order_To_Players
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

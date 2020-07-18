@@ -19,5 +19,7 @@ namespace MultiplayerAvalon.Games.Dto
         public Player CurrentPlayer { get; set; }
         public int PointsInnocent { get; set; }
         public int PointsEvil { get; set; }
+        public int Counter { get; set; }
+        public Round[] PreviousRounds { get; set; }
     }
 }

@@ -15,5 +15,6 @@ namespace MultiplayerAvalon.Players.Dto
         public string RoleInfo { get; set; }
         public string RoleName { get; set; }
         public bool IsEvil { get; set; }
+        public int Order { get; set; }
     }
 }

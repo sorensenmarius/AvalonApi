@@ -50,12 +50,17 @@ namespace MultiplayerAvalon.Games
                 .Include("Players")
                 .Include("CurrentPlayer")
                 .Include("CurrentRound.CurrentTeam")
+                .Include("PreviousRounds")
                 .FirstOrDefaultAsync(p => p.Id == id);
             return ObjectMapper.Map<GameDto>(g);
         }
         public async Task<GameDto> StartGame(StartGameDto model)
         {
             Game g = _gameRepository.GetAll().Include("Players").FirstOrDefault(game => game.Id == model.Id);
+            for (int i = 0; i < g.Players.Count; i++)
+            {
+                g.Players[i].Order = i;
+            }
             g.CurrentRound = new Round();
             g.CurrentPlayer = g.Players[0];
             g.Status = GameStatus.Playing;

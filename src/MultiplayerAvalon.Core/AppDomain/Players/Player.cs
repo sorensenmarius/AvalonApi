@@ -16,6 +16,6 @@ namespace MultiplayerAvalon.AppDomain.Players
         public string RoleInfo { get; set; }
         public string RoleName { get; set; }
         public bool IsEvil { get; set; }
-
+        public int Order { get; set; }
     }
 }
