@@ -21,7 +21,6 @@ namespace MultiplayerAvalon.Games
         private readonly IRepository<Game, Guid> _gameRepository;
         private readonly IRepository<Player, Guid> _playerRepository;
         private readonly IHubContext<GameHub> _gameHub;
-        private int NmrEvils = 0;
         public GameAppService(
             IRepository<Game, Guid> gameRepository, 
             IRepository<Player, Guid> playerRepository,
@@ -41,7 +40,6 @@ namespace MultiplayerAvalon.Games
         /// <summary>
         /// Gets a game by ID, populated with players
         /// </summary>
-        /// TODO - Refactor this to a stored procedure in the DB
         /// <param name="id"></param>
         /// <returns></returns>
         public async Task<GameDto> GetAsync(Guid id)
@@ -175,6 +173,16 @@ namespace MultiplayerAvalon.Games
             }
             return list;
         }
+
+        public async Task RemovePlayer(Guid GameId, Guid PlayerId)
+        {
+            Game g = _gameRepository.GetAll().Include("Players").FirstOrDefault(game => game.Id == GameId);
+            await _playerRepository.DeleteAsync(PlayerId);
+            g.Players.RemoveAll(p => p.Id == PlayerId);
+            await _gameRepository.UpdateAsync(g);
+            await _gameHub.Clients.Group(GameId.ToString()).SendAsync("UpdateAll");
+        }
+
         public string ReturnInfo(Game game, GameRole PlayerRole, Player p)
         {
             string RoleInfo = "Your role is: " + PlayerRole.ToString();
