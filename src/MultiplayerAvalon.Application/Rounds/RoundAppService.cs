@@ -39,7 +39,7 @@ namespace MultiplayerAvalon.Rounds
 
         public async Task SetTeam(SetTeamDto model)
         {
-            Game g = _gameRepository.GetAll().Include("CurrentRound.CurrentTeam").FirstOrDefault(g => g.Id == model.GameId);
+            Game g = _gameRepository.GetAll().Include("CurrentRound.CurrentTeam").Include("Players").FirstOrDefault(g => g.Id == model.GameId);
             List<Player> team = new List<Player>();
             g.CurrentRound.CurrentTeam.RemoveAll(player => true);
             foreach (Guid playerId in model.CurrentTeam)
@@ -116,8 +116,8 @@ namespace MultiplayerAvalon.Rounds
             {
                 g.CurrentRound.Status = RoundStatus.TeamApproved;
             }
-            g.counter++;
-            g.CurrentPlayer = g.Players[g.counter % g.Players.Count()];
+            g.Counter++;
+            g.CurrentPlayer = g.Players[g.Counter % g.Players.Count()];
             await _gameRepository.UpdateAsync(g);
             await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
         }
