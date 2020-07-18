@@ -185,43 +185,44 @@ namespace MultiplayerAvalon.Games
 
         public string ReturnInfo(Game game, GameRole PlayerRole, Player p)
         {
-            string RoleInfo = "Your role is: " + PlayerRole.ToString();
+            string RoleInfo = "";
             switch (PlayerRole)
             {
                 case GameRole.NotYetChosen:
-                    RoleInfo += ". We are sorry";
+                    RoleInfo += "We are sorry";
                     break;
                 case GameRole.Servant:
-                    RoleInfo += ". You win if you can complete 3 Missions.";
+                    RoleInfo += "You win if you can complete 3 Missions.";
                     break;
                 case GameRole.Minion:
-                    RoleInfo += ". The Evil players are: " + whoIsEvil(game);
+                    RoleInfo += "The Evil players are: " + whoIsEvil(game);
                     break;
                 case GameRole.Merlin:
-                    RoleInfo += ". The Evil players are: ";
+                    RoleInfo += "The Evil players are: ";
                     game.Players.ForEach(x =>
                     {
                         if (x.IsEvil && x.RoleId!=GameRole.Mordred) RoleInfo += x.Name + "   ";
                     });
                     break;
                 case GameRole.Percival:
-                    RoleInfo += ". Protect: ";
+                    RoleInfo += "Merlin is: ";
                     game.Players.ForEach(x =>
                     {
-                        if (x.RoleId==GameRole.Merlin||x.RoleId==GameRole.Morgana) RoleInfo += x.Name + "   ";
+                        if (x.RoleId==GameRole.Merlin||x.RoleId==GameRole.Morgana) RoleInfo += x.Name + " or ";
                     });
+                    RoleInfo = RoleInfo.Substring(0, RoleInfo.Length - 4);
                     break;
                 case GameRole.Mordred:
-                    RoleInfo += ". The Evil players are: " + whoIsEvil(game);
+                    RoleInfo += "The evil players are: " + whoIsEvil(game);
                     break;
                 case GameRole.Morgana:
-                    RoleInfo += "Percival thinks you can be Merlin. The evil players are: " + whoIsEvil(game);
+                    RoleInfo += "Percival sees you as Merlin.|The evil players are: " + whoIsEvil(game);
                     break;
                 case GameRole.Oberon:
-                    RoleInfo += ". You are Evil.";
+                    RoleInfo += "You are Evil.";
                     break;
                 case GameRole.Assassin:
-                    RoleInfo += ". If you figure out who Merlin is you win! " + whoIsEvil(game);
+                    RoleInfo += "If you figure out who Merlin is you win!|The evil players are: " + whoIsEvil(game);
                     break;
             }
             return RoleInfo;
@@ -231,8 +232,9 @@ namespace MultiplayerAvalon.Games
             string RoleInfo = "";
             g.Players.ForEach(x =>
             {
-                if (x.IsEvil && x.RoleId != GameRole.Oberon) RoleInfo += x.RoleId.ToString() + ": " + x.Name + "    ";
+                if (x.IsEvil && x.RoleId != GameRole.Oberon) RoleInfo += x.Name + " & ";
             });
+            RoleInfo = RoleInfo.Substring(0, RoleInfo.Length - 3);
             return RoleInfo;
         }
         public int GetHowManyEvils(int HowManyPlayers)
