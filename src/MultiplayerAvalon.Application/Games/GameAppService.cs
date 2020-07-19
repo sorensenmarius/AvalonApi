@@ -59,7 +59,7 @@ namespace MultiplayerAvalon.Games
             {
                 g.Players[i].Order = i;
             }
-            g.CurrentRound = new Round();
+            g.CurrentRound = new Round(1, g.Players.Count);
             g.CurrentPlayer = g.Players[0];
             g.Status = GameStatus.Playing;
             int evils = GetHowManyEvils(g.Players.Count());
@@ -149,7 +149,7 @@ namespace MultiplayerAvalon.Games
             } else
             {
                 g.PreviousRounds.Add(g.CurrentRound);
-                g.CurrentRound = new Round();
+                g.CurrentRound = new Round(g.PreviousRounds.Count, g.Players.Count);
             }
             await _gameRepository.UpdateAsync(g);
             await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");

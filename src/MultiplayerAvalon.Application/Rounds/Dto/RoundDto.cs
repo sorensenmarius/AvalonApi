@@ -19,6 +19,6 @@ namespace MultiplayerAvalon.Rounds.Dto
         public int VotesAgainstTeam { get; set; }
         public int MissionVoteGood { get; set; }
         public int MissionVoteBad { get; set; }
-
+        public int RequiredPlayers { get; set; }
     }
 }
