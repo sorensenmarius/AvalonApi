@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MultiplayerAvalon.EntityFrameworkCore;
 
 namespace MultiplayerAvalon.Migrations
 {
     [DbContext(typeof(MultiplayerAvalonDbContext))]
-    partial class MultiplayerAvalonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200716155808_Added_PreviousRounds_To_Game")]
+    partial class Added_PreviousRounds_To_Game
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1317,9 +1319,6 @@ namespace MultiplayerAvalon.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Counter")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
@@ -1339,6 +1338,9 @@ namespace MultiplayerAvalon.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("counter")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -1366,9 +1368,6 @@ namespace MultiplayerAvalon.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
@@ -1410,9 +1409,6 @@ namespace MultiplayerAvalon.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("MissionVoteGood")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RequiredPlayers")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")

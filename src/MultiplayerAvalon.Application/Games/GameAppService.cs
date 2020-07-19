@@ -1,10 +1,13 @@
 ﻿using Abp.Domain.Repositories;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using MultiplayerAvalon.AppDomain.GameRoles;
 using MultiplayerAvalon.AppDomain.Games;
 using MultiplayerAvalon.AppDomain.Players;
 using MultiplayerAvalon.AppDomain.Rounds;
 using MultiplayerAvalon.Games.Dto;
+using MultiplayerAvalon.Rounds.Dto;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,14 +20,16 @@ namespace MultiplayerAvalon.Games
     {
         private readonly IRepository<Game, Guid> _gameRepository;
         private readonly IRepository<Player, Guid> _playerRepository;
+        private readonly IHubContext<GameHub> _gameHub;
         public GameAppService(
             IRepository<Game, Guid> gameRepository, 
-            IRepository<Player, Guid> playerRepository
+            IRepository<Player, Guid> playerRepository,
+            IHubContext<GameHub> gameHub
             )
         {
             _gameRepository = gameRepository;
             _playerRepository = playerRepository;
-
+            _gameHub = gameHub;
         }
         public async Task<GameDto> CreateAsync()
         {
@@ -35,36 +40,39 @@ namespace MultiplayerAvalon.Games
         /// <summary>
         /// Gets a game by ID, populated with players
         /// </summary>
-        /// TODO - Refactor this to a stored procedure in the DB
         /// <param name="id"></param>
         /// <returns></returns>
         public async Task<GameDto> GetAsync(Guid id)
         {
-            Game g = await _gameRepository.GetAll().Include(g => g.Players).FirstOrDefaultAsync(p => p.Id == id);
+            Game g = await _gameRepository.GetAll()
+                .Include("Players")
+                .Include("CurrentPlayer")
+                .Include("CurrentRound.CurrentTeam")
+                .Include("PreviousRounds")
+                .FirstOrDefaultAsync(p => p.Id == id);
             return ObjectMapper.Map<GameDto>(g);
         }
-        public async Task<GameDto> StartGame(Guid id, List<string> rollene, int minions)
+        public async Task<GameDto> StartGame(StartGameDto model)
         {
-            List<Game> game = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
-            Game g = game.Find(item => item.Id == id);
-            Round r = await CreateNewRound();
-            g.CurrentRound = r;
+            Game g = _gameRepository.GetAll().Include("Players").FirstOrDefault(game => game.Id == model.Id);
+            for (int i = 0; i < g.Players.Count; i++)
+            {
+                g.Players[i].Order = i;
+            }
+            g.CurrentRound = new Round(1, g.Players.Count);
             g.CurrentPlayer = g.Players[0];
             g.Status = GameStatus.Playing;
-            await AssertRoles(id, rollene, minions);
+            int evils = GetHowManyEvils(g.Players.Count());
+            await AssertRoles(model.Id, model.Roles);
             await _gameRepository.UpdateAsync(g);
+            await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
             return ObjectMapper.Map<GameDto>(g);
         }
-        public async Task<GameDto> GameEnd(Guid id)
+        public async Task GameEnd(Guid id)
         {
-            List<Game> game = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
-            Game g = game.Find(item => item.Id == id);
-            if(g.PointsEvil == 3)
-            {
-                
-                g.Status = GameStatus.EvilWin;
-            }
-            else if(g.PointsInnocent == 3)
+            Game g = _gameRepository.GetAll().Include("Players").Include("PreviousRounds").FirstOrDefault(game => game.Id == id);
+            g.Status = GameStatus.Ended;
+            if(g.PointsEvil < 3)
             {
                 bool AssassinGame = false;
                 g.Players.ForEach(x =>
@@ -74,58 +82,79 @@ namespace MultiplayerAvalon.Games
                         AssassinGame = true;
                     }
                 });
-                if (AssassinGame) g.Status = GameStatus.AssassinTurn;
-                else g.Status = GameStatus.GoodWin;
-            }
-            return ObjectMapper.Map<GameDto>(g);
-        }
-        public async Task Assassinate(Guid GameId, Guid PlayerId)
-        {
-            List<Game> game = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
-            Game g = game.Find(item => item.Id == GameId);
-            Player p = await _playerRepository.GetAsync(PlayerId);
-            if (p.RoleId == GameRole.Merlin) g.Status = GameStatus.EvilWin;
-        }
-        public async Task<GameDto> AssertRoles(Guid id, List<string> rollene,int minions)
-        {
-            List<Game> game = await _gameRepository.GetAllIncluding(game => game.Players).ToListAsync();
-            Game g = game.Find(item => item.Id == id);
-            while (rollene.Count() < g.Players.Count())
-            {
-                while (minions > 0) 
+                if(AssassinGame)
                 {
-                    rollene.Add("2");
-                    minions--;
-                    System.Diagnostics.Debug.WriteLine("Adding minion");
+                    g.Status = GameStatus.AssassinTurn;
                 }
-                if(rollene.Count() < g.Players.Count())
-                {
-                    rollene.Add("1");
-                    System.Diagnostics.Debug.WriteLine("Adding ¨Servant");
-                } 
             }
-            List<string> roles = ShuffleNew(rollene);
-            List<GameRole> gameroles = new List<GameRole>();
-            roles.ForEach(x => gameroles.Add((GameRole)Enum.Parse(typeof(GameRole), x.ToString())));
-            int x = 0;
-            foreach (Player player in g.Players)
+            await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
+        }
+        public async Task Assassinate(GameAndPlayerIdDto model)
+        {
+            Game g = _gameRepository.GetAll().Include("Players").Include("PreviousRounds").FirstOrDefault(game => game.Id == model.GameId);
+            Player p = await _playerRepository.GetAsync(model.PlayerId);
+            if (p.RoleId == GameRole.Merlin) g.PointsEvil += 100;
+            g.Status = GameStatus.Ended;
+            await _gameRepository.UpdateAsync(g);
+            await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
+        }
+        public async Task<GameDto> AssertRoles(Guid id, List<string> rollene)
+        {
+            Game g = _gameRepository.GetAll().Include("Players").FirstOrDefault(game => game.Id == id);
+            var roles = rollene.Select(int.Parse).ToList();
+            roles.ForEach(role =>
             {
-                player.RoleId = gameroles[x];
-                player.RoleName = gameroles[x].ToString();
-                if (player.RoleId == GameRole.Minion || player.RoleId == GameRole.Assassin || player.RoleId == GameRole.Mordred || player.RoleId == GameRole.Morgana || player.RoleId == GameRole.Oberon) player.IsEvil = true;
-                else player.IsEvil = false;
-                x++;
+                var random = new Random();
+                // Random player that is not yet assigned a role
+                var notYetChosenPlayers = g.Players.FindAll(p => p.RoleId == GameRole.NotYetChosen);
+                var randomPlayer = notYetChosenPlayers[random.Next(notYetChosenPlayers.Count)];
+                randomPlayer.RoleId = (GameRole)role;
+                if (role >= 4)
+                {
+                    randomPlayer.IsEvil = true;
+                }
+                g.Players[g.Players.FindIndex(p => p.Id == randomPlayer.Id)] = randomPlayer;
+            });
+            var numberOfGood = roles.FindAll(r => r <= 3).Count;
+            var numberOfEvil = roles.Count + numberOfGood;
+            var numberOfMinions = GetHowManyEvils(g.Players.Count) - numberOfEvil;
+            for(int i = 0; i < numberOfMinions; i++)
+            {
+                var random = new Random();
+                // Random player that is not yet assigned a role
+                var notYetChosenPlayers = g.Players.FindAll(p => p.RoleId == GameRole.NotYetChosen);
+                var randomPlayer = notYetChosenPlayers[random.Next(notYetChosenPlayers.Count)];
+                randomPlayer.RoleId = GameRole.Minion;
+                randomPlayer.IsEvil = true;
+                g.Players[g.Players.FindIndex(p => p.Id == randomPlayer.Id)] = randomPlayer;
             }
-            g.Players.ForEach(async x => x.RoleInfo = await ReturnInfo(g,x.RoleId,x));
+            g.Players.ForEach(p =>
+            {
+                if (p.RoleId == GameRole.NotYetChosen)
+                {
+                    p.RoleId = GameRole.Servant;
+                }
+                p.RoleName = p.RoleId.ToString();
+                p.RoleInfo = ReturnInfo(g, p.RoleId, p);
+            });
             await _gameRepository.UpdateAsync(g);
             return ObjectMapper.Map<GameDto>(g);
         }
-        public async Task<Round> CreateNewRound()
+        public async Task NextRound(GameAndPlayerIdDto model)
         {
-            Round r = new Round();
-            r.CurrentTeam = new List<Player>();
-            return r;
+            Game g = _gameRepository.GetAll().Include("CurrentRound").Include("Players").Include("PreviousRounds").FirstOrDefault(game => game.Id == model.GameId);
+            if(g.PointsEvil >= 3 || g.PointsInnocent >= 3)
+            {
+                await GameEnd(model.GameId);
+            } else
+            {
+                g.PreviousRounds.Add(g.CurrentRound);
+                g.CurrentRound = new Round(g.PreviousRounds.Count, g.Players.Count);
+            }
+            await _gameRepository.UpdateAsync(g);
+            await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
         }
+
         public List<Player> ShufflePlayers(List<Player> items)
         {
             return items.Distinct().OrderBy(x => System.Guid.NewGuid().ToString()).ToList();
@@ -144,45 +173,56 @@ namespace MultiplayerAvalon.Games
             }
             return list;
         }
-        public async Task<string> ReturnInfo(Game game, GameRole PlayerRole,Player p)
+
+        public async Task RemovePlayer(Guid GameId, Guid PlayerId)
         {
-            string RoleInfo = "Your role is: " + PlayerRole.ToString();
+            Game g = _gameRepository.GetAll().Include("Players").FirstOrDefault(game => game.Id == GameId);
+            await _playerRepository.DeleteAsync(PlayerId);
+            g.Players.RemoveAll(p => p.Id == PlayerId);
+            await _gameRepository.UpdateAsync(g);
+            await _gameHub.Clients.Group(GameId.ToString()).SendAsync("UpdateAll");
+        }
+
+        public string ReturnInfo(Game game, GameRole PlayerRole, Player p)
+        {
+            string RoleInfo = "";
             switch (PlayerRole)
             {
                 case GameRole.NotYetChosen:
-                    RoleInfo += ". We are sorry";
+                    RoleInfo += "We are sorry";
                     break;
                 case GameRole.Servant:
-                    RoleInfo += ". You win if you can complete 3 Missions.";
+                    RoleInfo += "You win if you can complete 3 Missions.";
                     break;
                 case GameRole.Minion:
-                    RoleInfo += ". The Evil players are: " + whoIsEvil(game);
+                    RoleInfo += "The Evil players are: " + whoIsEvil(game);
                     break;
                 case GameRole.Merlin:
-                    RoleInfo += ". The Evil players are: ";
+                    RoleInfo += "The Evil players are: ";
                     game.Players.ForEach(x =>
                     {
                         if (x.IsEvil && x.RoleId!=GameRole.Mordred) RoleInfo += x.Name + "   ";
                     });
                     break;
                 case GameRole.Percival:
-                    RoleInfo += ". Protect: ";
+                    RoleInfo += "Merlin is: ";
                     game.Players.ForEach(x =>
                     {
-                        if (x.RoleId==GameRole.Merlin||x.RoleId==GameRole.Morgana) RoleInfo += x.Name + "   ";
+                        if (x.RoleId==GameRole.Merlin||x.RoleId==GameRole.Morgana) RoleInfo += x.Name + " or ";
                     });
+                    RoleInfo = RoleInfo.Substring(0, RoleInfo.Length - 4);
                     break;
                 case GameRole.Mordred:
-                    RoleInfo += ". The Evil players are: " + whoIsEvil(game);
+                    RoleInfo += "The evil players are: " + whoIsEvil(game);
                     break;
                 case GameRole.Morgana:
-                    RoleInfo += "Percival thinks you can be Merlin. The evil players are: " + whoIsEvil(game);
+                    RoleInfo += "Percival sees you as Merlin.|The evil players are: " + whoIsEvil(game);
                     break;
                 case GameRole.Oberon:
-                    RoleInfo += ". You are Evil.";
+                    RoleInfo += "You are Evil.";
                     break;
                 case GameRole.Assassin:
-                    RoleInfo += ". If you figure out who Merlin is you win! " + whoIsEvil(game);
+                    RoleInfo += "If you figure out who Merlin is you win!|The evil players are: " + whoIsEvil(game);
                     break;
             }
             return RoleInfo;
@@ -192,9 +232,16 @@ namespace MultiplayerAvalon.Games
             string RoleInfo = "";
             g.Players.ForEach(x =>
             {
-                if (x.IsEvil && x.RoleId != GameRole.Oberon) RoleInfo += x.RoleId.ToString() + ": " + x.Name + "    ";
+                if (x.IsEvil && x.RoleId != GameRole.Oberon) RoleInfo += x.Name + " & ";
             });
+            RoleInfo = RoleInfo.Substring(0, RoleInfo.Length - 3);
             return RoleInfo;
+        }
+        public int GetHowManyEvils(int HowManyPlayers)
+        {
+            if (HowManyPlayers < 5) HowManyPlayers = 5;
+            int[,] HowManyGood_Evils = new int[2, 6] { { 3, 4, 4, 5, 6, 6 }, { 2, 2, 3, 3, 3, 4 } };
+            return HowManyGood_Evils[1, HowManyPlayers-5];
         }
     }
 }

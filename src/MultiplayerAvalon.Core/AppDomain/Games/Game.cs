@@ -15,7 +15,7 @@ namespace MultiplayerAvalon.AppDomain.Games
     {
         [Required]
         public int JoinCode { get; set; }
-        public int counter { get; set; }
+        public int Counter { get; set; }
         public int PointsInnocent { get; set; }
         public int PointsEvil { get; set; }
         public Player CurrentPlayer { get; set; }
@@ -23,6 +23,7 @@ namespace MultiplayerAvalon.AppDomain.Games
         public DateTime CreationTime { get; set; }
         public GameStatus Status { get; set; }
         public Round CurrentRound { get; set; }
+        public List<Round> PreviousRounds { get; set; }
         public Game()
         {
             Random generator = new Random();
