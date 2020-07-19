@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Repositories;
+using Abp.UI;
 using Microsoft.EntityFrameworkCore;
 using MultiplayerAvalon.AppDomain.Games;
 using MultiplayerAvalon.AppDomain.Players;
@@ -29,6 +30,10 @@ namespace MultiplayerAvalon.Players
             Guid pId = await _playerRepository.InsertAndGetIdAsync(p);
             p.Id = pId;
             Game g = await _gameRepository.GetAllIncluding(game => game.Players).Where(game => game.JoinCode == model.JoinCode && game.Status == GameStatus.WaitingForPlayers).FirstOrDefaultAsync();
+            if(g == default(Game))
+            {
+                throw new UserFriendlyException("Incorrect Join Code", $"No game with Join Code {model.JoinCode} is currently open for players!");
+            }
             g.Players.Add(p);
             await _gameRepository.UpdateAsync(g);
             GamePlayerDto gp = new GamePlayerDto();
@@ -36,5 +41,6 @@ namespace MultiplayerAvalon.Players
             gp.Player = p;
             return gp;
         }
+
     }
 }
