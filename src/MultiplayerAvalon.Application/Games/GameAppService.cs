@@ -116,7 +116,7 @@ namespace MultiplayerAvalon.Games
                 g.Players[g.Players.FindIndex(p => p.Id == randomPlayer.Id)] = randomPlayer;
             });
             var numberOfGood = roles.FindAll(r => r <= 3).Count;
-            var numberOfEvil = roles.Count + numberOfGood;
+            var numberOfEvil = roles.Count - numberOfGood;
             var numberOfMinions = GetHowManyEvils(g.Players.Count) - numberOfEvil;
             for(int i = 0; i < numberOfMinions; i++)
             {
