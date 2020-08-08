@@ -26,6 +26,7 @@ namespace MultiplayerAvalon.AppDomain.Rounds
         [Required]
         public int FailedTeams { get; set; }
         public List<Player> CurrentTeam { get; set; }
+        public string TeamString { get; set; }
         public DateTime CreationTime { get; set; }
         public RoundStatus Status { get; set; }
         public int VotesForTeam { get; set; }
