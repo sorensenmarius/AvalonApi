@@ -117,7 +117,7 @@ namespace MultiplayerAvalon.Games
                 g.Players[g.Players.FindIndex(p => p.Id == randomPlayer.Id)] = randomPlayer;
             });
             var numberOfGood = roles.FindAll(r => r <= 3).Count;
-            var numberOfEvil = roles.Count + numberOfGood;
+            var numberOfEvil = roles.Count - numberOfGood;
             var numberOfMinions = GetHowManyEvils(g.Players.Count) - numberOfEvil;
             for(int i = 0; i < numberOfMinions; i++)
             {
@@ -143,12 +143,17 @@ namespace MultiplayerAvalon.Games
         }
         public async Task NextRound(GameAndPlayerIdDto model)
         {
-            Game g = _gameRepository.GetAll().Include("CurrentRound").Include("Players").Include("PreviousRounds").FirstOrDefault(game => game.Id == model.GameId);
+            Game g = _gameRepository.GetAll()
+                .Include("CurrentRound")
+                .Include("Players")
+                .Include("PreviousRounds")
+                .FirstOrDefault(game => game.Id == model.GameId);
             if(g.PointsEvil >= 3 || g.PointsInnocent >= 3)
             {
                 await GameEnd(model.GameId);
             } else
             {
+                g.CurrentRound.CurrentTeam.ForEach(p => g.CurrentRound.TeamString += p.Name + " ");
                 g.PreviousRounds.Add(g.CurrentRound);
                 g.CurrentRound = new Round(g.PreviousRounds.Count, g.Players.Count);
             }

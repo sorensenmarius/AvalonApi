@@ -41,7 +41,7 @@ namespace MultiplayerAvalon.Rounds
         {
             Game g = _gameRepository.GetAll().Include("CurrentRound.CurrentTeam").Include("Players").FirstOrDefault(g => g.Id == model.GameId);
             List<Player> team = new List<Player>();
-            g.CurrentRound.CurrentTeam.RemoveAll(player => true);
+            g.CurrentRound.CurrentTeam.Clear();
             foreach (Guid playerId in model.CurrentTeam)
             {
                 team.Add(await _playerRepository.GetAsync(playerId));
