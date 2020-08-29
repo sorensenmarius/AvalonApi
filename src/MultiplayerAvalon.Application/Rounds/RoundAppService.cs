@@ -50,7 +50,7 @@ namespace MultiplayerAvalon.Rounds
             await _gameRepository.UpdateAsync(g);
             await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateHost");
         }
-        public async Task VoteForTeam(VoteDto model)
+        public async Task<Round> VoteForTeam(VoteDto model)
         {
             Game g = _gameRepository.GetAll().Include("Players").Include("CurrentRound").FirstOrDefault(game => game.Id == model.GameId);
             if (model.Vote)
@@ -68,8 +68,9 @@ namespace MultiplayerAvalon.Rounds
             {
                 await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateHost");
             }
+            return g.CurrentRound;
         }
-        public async Task ExpeditonVote(VoteDto model)
+        public async Task<Round> ExpeditonVote(VoteDto model)
         {
             Player p = await _playerRepository.GetAsync(model.PlayerId);
             Game g = _gameRepository.GetAll().Include("CurrentRound.CurrentTeam").FirstOrDefault(game => game.Id == model.GameId);
@@ -90,6 +91,7 @@ namespace MultiplayerAvalon.Rounds
                 await _gameRepository.UpdateAsync(g);
                 await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateHost");
             }
+            return g.CurrentRound;
         }
 
         public async Task SetRoundStatus(SetRoundStatusDto model)
