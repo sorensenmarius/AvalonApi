@@ -153,7 +153,7 @@ namespace MultiplayerAvalon.Games
                 await GameEnd(model.GameId);
             } else
             {
-                g.CurrentRound.CurrentTeam.ForEach(p => g.CurrentRound.TeamString += p.Name + " ");
+                g.CurrentRound.TeamString = String.Join(' ', g.CurrentRound.CurrentTeam.Select(p => p.Name));
                 g.PreviousRounds.Add(g.CurrentRound);
                 g.CurrentRound = new Round(g.PreviousRounds.Count, g.Players.Count);
             }

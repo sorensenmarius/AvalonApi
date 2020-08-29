@@ -34,7 +34,6 @@ namespace MultiplayerAvalon.AppDomain.Rounds
         public int MissionVoteGood { get; set; }
         public int MissionVoteBad { get; set; }
         public int RequiredPlayers { get; set; }
-        public string TeamString { get; set; }
 
         private HowManyPlayerHelper HowManyPlayers(int RoundNmr, int TotalPlayers)
         {

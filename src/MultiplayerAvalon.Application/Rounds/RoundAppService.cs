@@ -120,7 +120,6 @@ namespace MultiplayerAvalon.Rounds
             }
             g.Counter++;
             g.CurrentPlayer = g.Players[g.Counter % g.Players.Count()];
-            g.CurrentRound.TeamString = String.Join(' ', g.CurrentRound.CurrentTeam.Select(p => p.Name));
             await _gameRepository.UpdateAsync(g);
             await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
         }

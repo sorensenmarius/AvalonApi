@@ -38,6 +38,10 @@ namespace MultiplayerAvalon.Players
             {
                 throw new UserFriendlyException("Name already taken", $"The name '{model.Name}' has already been taken by another player!");
             }
+            if(model.Name.Length > 20)
+            {
+                throw new UserFriendlyException("Name too long", $"Name cannot be longer than 20 characters.");
+            }
             g.Players.Add(p);
             await _gameRepository.UpdateAsync(g);
             GamePlayerDto gp = new GamePlayerDto();
