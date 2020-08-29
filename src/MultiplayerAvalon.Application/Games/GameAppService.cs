@@ -49,6 +49,7 @@ namespace MultiplayerAvalon.Games
                 .Include("CurrentPlayer")
                 .Include("CurrentRound.CurrentTeam")
                 .Include("PreviousRounds")
+                .Include("PreviousRounds.CurrentTeam")
                 .FirstOrDefaultAsync(p => p.Id == id);
             return ObjectMapper.Map<GameDto>(g);
         }

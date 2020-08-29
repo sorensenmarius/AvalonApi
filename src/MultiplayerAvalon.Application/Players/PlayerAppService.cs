@@ -34,6 +34,10 @@ namespace MultiplayerAvalon.Players
             {
                 throw new UserFriendlyException("Incorrect Join Code", $"No game with Join Code {model.JoinCode} is currently open for players!");
             }
+            if(g.Players.Select(p => p.Name.ToLower()).Contains(model.Name.ToLower()))
+            {
+                throw new UserFriendlyException("Name already taken", $"The name '{model.Name}' has already been taken by another player!");
+            }
             g.Players.Add(p);
             await _gameRepository.UpdateAsync(g);
             GamePlayerDto gp = new GamePlayerDto();
