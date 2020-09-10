@@ -19,12 +19,12 @@ namespace MultiplayerAvalon.Rounds
 {
     public class RoundAppService : MultiplayerAvalonAppServiceBase, IRoundAppService
     {
-        private readonly IRepository<Round, Guid> _roundRepository;
+        private readonly IRoundRepository _roundRepository;
         private readonly IRepository<Game, Guid> _gameRepository;
         private readonly IRepository<Player, Guid> _playerRepository;
         private readonly IHubContext<GameHub> _gameHub;
         public RoundAppService(
-            IRepository<Round, Guid> roundRepository,
+            IRoundRepository roundRepository,
             IRepository<Game, Guid> gameRepository,
             IRepository<Player, Guid> playerRepository,
             IHubContext<GameHub> gameHub
@@ -52,16 +52,19 @@ namespace MultiplayerAvalon.Rounds
         }
         public async Task<Round> VoteForTeam(VoteDto model)
         {
-            Game g = _gameRepository.GetAll().Include("Players").Include("CurrentRound").FirstOrDefault(game => game.Id == model.GameId);
+            Player p = _playerRepository.Get(model.PlayerId);
+            System.Diagnostics.Debug.WriteLine($"{p.Name} voted {model.Vote}");
+            Game g = _gameRepository.GetAll().Include("CurrentRound").Include("Players").FirstOrDefault(game => game.Id == model.GameId);
+            var totalVotes = 0;
             if (model.Vote)
             {
-                g.CurrentRound.VotesForTeam++;
+                totalVotes = await _roundRepository.VoteForTeam(g.CurrentRound.Id);
             } else
             {
-                g.CurrentRound.VotesAgainstTeam++;
+                totalVotes = await _roundRepository.VoteAgainstTeam(g.CurrentRound.Id);
             }
-            await _gameRepository.UpdateAsync(g);
-            if (g.CurrentRound.VotesForTeam + g.CurrentRound.VotesAgainstTeam >= g.Players.Count)
+            System.Diagnostics.Debug.WriteLine($"{p.Name} updated game in DB");
+            if (totalVotes >= g.Players.Count)
             {
                 await VoteForTeamResults(g);
             } else
@@ -74,21 +77,21 @@ namespace MultiplayerAvalon.Rounds
         {
             Player p = await _playerRepository.GetAsync(model.PlayerId);
             Game g = _gameRepository.GetAll().Include("CurrentRound.CurrentTeam").FirstOrDefault(game => game.Id == model.GameId);
+            var totalVotes = 0;
             if (model.Vote)
             {
-                g.CurrentRound.MissionVoteGood++;
+                totalVotes = await _roundRepository.VoteForExpedition(g.CurrentRound.Id);
             }
             else
             {
-                g.CurrentRound.MissionVoteBad++;
+                totalVotes = await _roundRepository.VoteAgainstExpedition(g.CurrentRound.Id);
             }
-            if (g.CurrentRound.MissionVoteGood + g.CurrentRound.MissionVoteBad >= g.CurrentRound.CurrentTeam.Count)
+            if (totalVotes >= g.CurrentRound.CurrentTeam.Count)
             {
                 await ExpeditionResults(g);
             }
             else
             {
-                await _gameRepository.UpdateAsync(g);
                 await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateHost");
             }
             return g.CurrentRound;
