@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace MultiplayerAvalon.AppDomain.Games
 {
@@ -39,6 +39,14 @@ namespace MultiplayerAvalon.AppDomain.Games
         public static void DeleteGame(Guid id)
         {
             instance.Games.Remove(id);
+        }
+
+        public static Game GetGameByJoinCode(int joinCode)
+        {
+            Game g = instance.Games.Where(keyValuePair => keyValuePair.Value.JoinCode == joinCode).FirstOrDefault().Value;
+            if (g == default(Game))
+                throw new KeyNotFoundException($"Game with Join Code {joinCode} does not exist");
+            return g;
         }
     }
 }
