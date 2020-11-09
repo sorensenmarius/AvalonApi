@@ -57,5 +57,21 @@ namespace MultiplayerAvalon.AppDomain.Rounds
                 DoubleRound = doubleRound;
             }
         }
+
+        public int TotalTeamVotes
+        {
+            get
+            {
+                return VotesForTeam + VotesAgainstTeam;
+            }
+        }
+
+        public int TotalMissionVotes
+        {
+            get
+            {
+                return MissionVoteGood + MissionVoteBad;
+            }
+        }
     }
 }
