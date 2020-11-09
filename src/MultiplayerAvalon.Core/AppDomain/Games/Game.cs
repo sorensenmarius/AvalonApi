@@ -32,6 +32,10 @@ namespace MultiplayerAvalon.AppDomain.Games
             CreationTime = DateTime.Now;
             Status = GameStatus.WaitingForPlayers;
         }
-       
+
+        public Player GetPlayer(Guid playerId)
+        {
+            return Players.Find(p => p.Id == playerId);
+        }
     }
 }
