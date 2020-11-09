@@ -83,7 +83,7 @@ namespace MultiplayerAvalon.Games
         public async Task Assassinate(GameAndPlayerIdDto model)
         {
             Game g = GameStore.GetGame(model.GameId);
-            Player p = g.Players.Find(p => p.Id == model.PlayerId);
+            Player p = g.GetPlayer(model.PlayerId);
             if (p.RoleId == GameRole.Merlin) g.PointsEvil += 100;
             g.Status = GameStatus.Ended;
             GameStore.AddOrUpdateGame(g);
