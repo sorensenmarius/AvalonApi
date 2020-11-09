@@ -30,6 +30,12 @@ namespace MultiplayerAvalon.AppDomain.Games
             instance.Games[g.Id] = g;
         }
 
+        public static Game GetGame(Guid id)
+        {
+            instance.Games.TryGetValue(id, out Game g);
+            return g;
+        }
+
         public static void DeleteGame(Guid id)
         {
             instance.Games.Remove(id);
