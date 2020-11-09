@@ -73,5 +73,21 @@ namespace MultiplayerAvalon.AppDomain.Rounds
                 return MissionVoteGood + MissionVoteBad;
             }
         }
+
+        public void TeamVote(bool acceptTeam)
+        {
+            if (acceptTeam)
+                VotesForTeam++;
+            else
+                VotesAgainstTeam++;
+        }
+
+        public void ExpeditionVote(bool goodVote)
+        {
+            if (goodVote)
+                MissionVoteGood++;
+            else
+                MissionVoteBad++;
+        }
     }
 }

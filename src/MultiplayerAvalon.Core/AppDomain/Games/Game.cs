@@ -37,13 +37,5 @@ namespace MultiplayerAvalon.AppDomain.Games
         {
             return Players.Find(p => p.Id == playerId);
         }
-
-        public void TeamVote(bool acceptTeam)
-        {
-            if (acceptTeam)
-                CurrentRound.VotesForTeam++;
-            else
-                CurrentRound.VotesAgainstTeam++;
-        }
     }
 }
