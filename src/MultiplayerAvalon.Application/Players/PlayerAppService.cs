@@ -14,16 +14,7 @@ namespace MultiplayerAvalon.Players
 {
     public class PlayerAppService : MultiplayerAvalonAppServiceBase, IPlayerAppService
     {
-        private readonly IRepository<Game, Guid> _gameRepository;
-        private readonly IRepository<Player, Guid> _playerRepository;
-        public PlayerAppService(
-            IRepository<Game, Guid> gameRepository,
-            IRepository<Player, Guid> playerRepository
-            )
-        {
-            _gameRepository = gameRepository;
-            _playerRepository = playerRepository;
-        }
+        public PlayerAppService(){}
         public async Task<GamePlayerDto> CreateAsync(CreatePlayerDto model)
         {
             Player p = ObjectMapper.Map<Player>(model);

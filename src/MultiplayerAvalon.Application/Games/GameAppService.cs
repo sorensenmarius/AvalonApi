@@ -9,7 +9,6 @@ using MultiplayerAvalon.AppDomain.Rounds;
 using MultiplayerAvalon.Games.Dto;
 using MultiplayerAvalon.Rounds.Dto;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,8 +19,6 @@ namespace MultiplayerAvalon.Games
     {
         private readonly IHubContext<GameHub> _gameHub;
         public GameAppService(
-            IRepository<Game, Guid> gameRepository, 
-            IRepository<Player, Guid> playerRepository,
             IHubContext<GameHub> gameHub
             )
         {
