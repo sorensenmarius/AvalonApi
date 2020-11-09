@@ -27,23 +27,14 @@ namespace MultiplayerAvalon.Players
         public async Task<GamePlayerDto> CreateAsync(CreatePlayerDto model)
         {
             Player p = ObjectMapper.Map<Player>(model);
-            Guid pId = await _playerRepository.InsertAndGetIdAsync(p);
-            p.Id = pId;
-            Game g = await _gameRepository.GetAllIncluding(game => game.Players).Where(game => game.JoinCode == model.JoinCode && game.Status == GameStatus.WaitingForPlayers).FirstOrDefaultAsync();
-            if(g == default(Game))
-            {
-                throw new UserFriendlyException("Incorrect Join Code", $"No game with Join Code {model.JoinCode} is currently open for players!");
-            }
-            if(g.Players.Select(p => p.Name.ToLower()).Contains(model.Name.ToLower()))
-            {
+            p.Id = Guid.NewGuid();
+            Game g = GameStore.GetGameByJoinCode(model.JoinCode);
+            if (g.Players.Select(p => p.Name.ToLower()).Contains(model.Name.ToLower()))
                 throw new UserFriendlyException("Name already taken", $"The name '{model.Name}' has already been taken by another player!");
-            }
             if(model.Name.Length > 20)
-            {
                 throw new UserFriendlyException("Name too long", $"Name cannot be longer than 20 characters.");
-            }
             g.Players.Add(p);
-            await _gameRepository.UpdateAsync(g);
+            GameStore.AddOrUpdateGame(g);
             GamePlayerDto gp = new GamePlayerDto();
             gp.Game = g;
             gp.Player = p;

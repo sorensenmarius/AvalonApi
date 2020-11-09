@@ -30,6 +30,7 @@ namespace MultiplayerAvalon.Games
         public async Task<GameDto> CreateAsync()
         {
             Game g = new Game();
+            g.Id = Guid.NewGuid();
             GameStore.AddOrUpdateGame(g);
             return ObjectMapper.Map<GameDto>(g);
         }
