@@ -35,7 +35,7 @@ jobs:
         path_to_directory: '${{ github.workspace }}/dotnetcorewebapp'
         migrations_dll: 'MultiplayerAvalon.EntityFrameworkCore.dll'
         migrations_namespace: 'MultiplayerAvalon.EntityFrameworkCore'
-        startup_dll: 'MultiplayerAvalon.Web.Host.dll'
+        startup_dll: 'MultiplayerAvalon.EntityFrameworkCore.dll'
         dbcontext_class_name: 'MultiplayerAvalonDbContext'
 
     - name: 'Deploy to Azure WebApp'
