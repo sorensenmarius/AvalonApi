@@ -9,7 +9,6 @@ using MultiplayerAvalon.AppDomain.Rounds;
 using MultiplayerAvalon.Games.Dto;
 using MultiplayerAvalon.Rounds.Dto;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,23 +17,18 @@ namespace MultiplayerAvalon.Games
 {
     public class GameAppService : MultiplayerAvalonAppServiceBase, IGameAppService
     {
-        private readonly IRepository<Game, Guid> _gameRepository;
-        private readonly IRepository<Player, Guid> _playerRepository;
         private readonly IHubContext<GameHub> _gameHub;
         public GameAppService(
-            IRepository<Game, Guid> gameRepository, 
-            IRepository<Player, Guid> playerRepository,
             IHubContext<GameHub> gameHub
             )
         {
-            _gameRepository = gameRepository;
-            _playerRepository = playerRepository;
             _gameHub = gameHub;
         }
         public async Task<GameDto> CreateAsync()
         {
             Game g = new Game();
-            await _gameRepository.InsertAsync(g);
+            g.Id = Guid.NewGuid();
+            GameStore.AddOrUpdateGame(g);
             return ObjectMapper.Map<GameDto>(g);
         }
         /// <summary>
@@ -44,18 +38,12 @@ namespace MultiplayerAvalon.Games
         /// <returns></returns>
         public async Task<GameDto> GetAsync(Guid id)
         {
-            Game g = await _gameRepository.GetAll()
-                .Include("Players")
-                .Include("CurrentPlayer")
-                .Include("CurrentRound.CurrentTeam")
-                .Include("PreviousRounds")
-                .Include("PreviousRounds.CurrentTeam")
-                .FirstOrDefaultAsync(p => p.Id == id);
+            Game g = GameStore.GetGame(id);
             return ObjectMapper.Map<GameDto>(g);
         }
         public async Task<GameDto> StartGame(StartGameDto model)
         {
-            Game g = _gameRepository.GetAll().Include("Players").FirstOrDefault(game => game.Id == model.Id);
+            Game g = GameStore.GetGame(model.Id);
             for (int i = 0; i < g.Players.Count; i++)
             {
                 g.Players[i].Order = i;
@@ -63,15 +51,14 @@ namespace MultiplayerAvalon.Games
             g.CurrentRound = new Round(1, g.Players.Count);
             g.CurrentPlayer = g.Players[0];
             g.Status = GameStatus.Playing;
-            int evils = GetHowManyEvils(g.Players.Count());
             await AssertRoles(model.Id, model.Roles);
-            await _gameRepository.UpdateAsync(g);
+            GameStore.AddOrUpdateGame(g);
             await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
             return ObjectMapper.Map<GameDto>(g);
         }
         public async Task GameEnd(Guid id)
         {
-            Game g = _gameRepository.GetAll().Include("Players").Include("PreviousRounds").FirstOrDefault(game => game.Id == id);
+            Game g = GameStore.GetGame(id);
             g.Status = GameStatus.Ended;
             if(g.PointsEvil < 3)
             {
@@ -88,20 +75,21 @@ namespace MultiplayerAvalon.Games
                     g.Status = GameStatus.AssassinTurn;
                 }
             }
+            GameStore.AddOrUpdateGame(g);
             await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
         }
         public async Task Assassinate(GameAndPlayerIdDto model)
         {
-            Game g = _gameRepository.GetAll().Include("Players").Include("PreviousRounds").FirstOrDefault(game => game.Id == model.GameId);
-            Player p = await _playerRepository.GetAsync(model.PlayerId);
+            Game g = GameStore.GetGame(model.GameId);
+            Player p = g.GetPlayer(model.PlayerId);
             if (p.RoleId == GameRole.Merlin) g.PointsEvil += 100;
             g.Status = GameStatus.Ended;
-            await _gameRepository.UpdateAsync(g);
+            GameStore.AddOrUpdateGame(g);
             await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
         }
         public async Task<GameDto> AssertRoles(Guid id, List<string> rollene)
         {
-            Game g = _gameRepository.GetAll().Include("Players").FirstOrDefault(game => game.Id == id);
+            Game g = GameStore.GetGame(id);
             var roles = rollene.Select(int.Parse).ToList();
             roles.ForEach(role =>
             {
@@ -136,19 +124,15 @@ namespace MultiplayerAvalon.Games
                     p.RoleId = GameRole.Servant;
                 }
                 p.RoleName = p.RoleId.ToString();
-                p.RoleInfo = ReturnInfo(g, p.RoleId, p);
+                p.RoleInfo = ReturnInfo(g, p.RoleId);
             });
-            await _gameRepository.UpdateAsync(g);
+            GameStore.AddOrUpdateGame(g);
             return ObjectMapper.Map<GameDto>(g);
         }
         public async Task NextRound(GameAndPlayerIdDto model)
         {
-            Game g = _gameRepository.GetAll()
-                .Include("CurrentRound")
-                .Include("Players")
-                .Include("PreviousRounds")
-                .FirstOrDefault(game => game.Id == model.GameId);
-            if(g.PointsEvil >= 3 || g.PointsInnocent >= 3)
+            Game g = GameStore.GetGame(model.GameId);
+            if (g.PointsEvil >= 3 || g.PointsInnocent >= 3)
             {
                 await GameEnd(model.GameId);
             } else
@@ -157,7 +141,7 @@ namespace MultiplayerAvalon.Games
                 g.PreviousRounds.Add(g.CurrentRound);
                 g.CurrentRound = new Round(g.PreviousRounds.Count, g.Players.Count);
             }
-            await _gameRepository.UpdateAsync(g);
+            GameStore.AddOrUpdateGame(g);
             await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
         }
 
@@ -182,14 +166,13 @@ namespace MultiplayerAvalon.Games
 
         public async Task RemovePlayer(Guid GameId, Guid PlayerId)
         {
-            Game g = _gameRepository.GetAll().Include("Players").FirstOrDefault(game => game.Id == GameId);
-            await _playerRepository.DeleteAsync(PlayerId);
+            Game g = GameStore.GetGame(GameId);
             g.Players.RemoveAll(p => p.Id == PlayerId);
-            await _gameRepository.UpdateAsync(g);
+            GameStore.AddOrUpdateGame(g);
             await _gameHub.Clients.Group(GameId.ToString()).SendAsync("UpdateAll");
         }
 
-        public string ReturnInfo(Game game, GameRole PlayerRole, Player p)
+        public string ReturnInfo(Game game, GameRole PlayerRole)
         {
             string RoleInfo = "";
             switch (PlayerRole)

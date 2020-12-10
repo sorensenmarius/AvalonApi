@@ -1,14 +1,9 @@
 ﻿using Abp.Domain.Repositories;
-using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using MultiplayerAvalon.AppDomain.Games;
 using MultiplayerAvalon.AppDomain.Players;
 using MultiplayerAvalon.AppDomain.Rounds;
 using MultiplayerAvalon.Games;
-using MultiplayerAvalon.Games.Dto;
-using MultiplayerAvalon.Players.Dto;
 using MultiplayerAvalon.Rounds.Dto;
 using System;
 using System.Collections.Generic;
@@ -19,79 +14,52 @@ namespace MultiplayerAvalon.Rounds
 {
     public class RoundAppService : MultiplayerAvalonAppServiceBase, IRoundAppService
     {
-        private readonly IRoundRepository _roundRepository;
-        private readonly IRepository<Game, Guid> _gameRepository;
-        private readonly IRepository<Player, Guid> _playerRepository;
         private readonly IHubContext<GameHub> _gameHub;
         public RoundAppService(
-            IRoundRepository roundRepository,
-            IRepository<Game, Guid> gameRepository,
-            IRepository<Player, Guid> playerRepository,
             IHubContext<GameHub> gameHub
-
           )
         {
-            _roundRepository = roundRepository;
-            _gameRepository = gameRepository;
-            _playerRepository = playerRepository;
             _gameHub = gameHub;
         }
 
         public async Task SetTeam(SetTeamDto model)
         {
-            Game g = _gameRepository.GetAll().Include("CurrentRound.CurrentTeam").Include("Players").FirstOrDefault(g => g.Id == model.GameId);
+            Game g = GameStore.GetGame(model.GameId);
             List<Player> team = new List<Player>();
             g.CurrentRound.CurrentTeam.Clear();
             foreach (Guid playerId in model.CurrentTeam)
             {
-                team.Add(await _playerRepository.GetAsync(playerId));
+                team.Add(g.GetPlayer(playerId));
             }
             g.CurrentRound.CurrentTeam = team;
-            await _gameRepository.UpdateAsync(g);
+            GameStore.AddOrUpdateGame(g);
             await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateHost");
         }
         public async Task<Round> VoteForTeam(VoteDto model)
         {
-            Player p = _playerRepository.Get(model.PlayerId);
-            System.Diagnostics.Debug.WriteLine($"{p.Name} voted {model.Vote}");
-            Game g = _gameRepository.GetAll().Include("CurrentRound").Include("Players").FirstOrDefault(game => game.Id == model.GameId);
-            var totalVotes = 0;
-            if (model.Vote)
-            {
-                totalVotes = await _roundRepository.VoteForTeam(g.CurrentRound.Id);
-            } else
-            {
-                totalVotes = await _roundRepository.VoteAgainstTeam(g.CurrentRound.Id);
-            }
-            System.Diagnostics.Debug.WriteLine($"{p.Name} updated game in DB");
-            if (totalVotes >= g.Players.Count)
+            Game g = GameStore.GetGame(model.GameId);
+            g.CurrentRound.TeamVote(model.Vote);
+            if (g.CurrentRound.TotalTeamVotes >= g.Players.Count)
             {
                 await VoteForTeamResults(g);
             } else
             {
+                GameStore.AddOrUpdateGame(g);
                 await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateHost");
             }
             return g.CurrentRound;
         }
         public async Task<Round> ExpeditonVote(VoteDto model)
         {
-            Player p = await _playerRepository.GetAsync(model.PlayerId);
-            Game g = _gameRepository.GetAll().Include("CurrentRound.CurrentTeam").FirstOrDefault(game => game.Id == model.GameId);
-            var totalVotes = 0;
-            if (model.Vote)
-            {
-                totalVotes = await _roundRepository.VoteForExpedition(g.CurrentRound.Id);
-            }
-            else
-            {
-                totalVotes = await _roundRepository.VoteAgainstExpedition(g.CurrentRound.Id);
-            }
-            if (totalVotes >= g.CurrentRound.CurrentTeam.Count)
+            Game g = GameStore.GetGame(model.GameId);
+            g.CurrentRound.ExpeditionVote(model.Vote);
+            if (g.CurrentRound.TotalMissionVotes >= g.CurrentRound.CurrentTeam.Count)
             {
                 await ExpeditionResults(g);
             }
             else
             {
+                GameStore.AddOrUpdateGame(g);
                 await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateHost");
             }
             return g.CurrentRound;
@@ -99,14 +67,14 @@ namespace MultiplayerAvalon.Rounds
 
         public async Task SetRoundStatus(SetRoundStatusDto model)
         {
-            var g = _gameRepository.GetAll().Include("CurrentRound").FirstOrDefault(game => game.Id == model.GameId);
+            Game g = GameStore.GetGame(model.GameId);
             g.CurrentRound.Status = model.Status;
             if (model.Status == RoundStatus.SelectingTeam)
             {
                 g.CurrentRound.VotesForTeam = 0;
                 g.CurrentRound.VotesAgainstTeam = 0;
             }
-            await _gameRepository.UpdateAsync(g);
+            GameStore.AddOrUpdateGame(g);
             await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateAll");
         }
         
@@ -123,7 +91,7 @@ namespace MultiplayerAvalon.Rounds
             }
             g.Counter++;
             g.CurrentPlayer = g.Players[g.Counter % g.Players.Count()];
-            await _gameRepository.UpdateAsync(g);
+            GameStore.AddOrUpdateGame(g);
             await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
         }
         private async Task ExpeditionResults(Game g)
@@ -138,18 +106,14 @@ namespace MultiplayerAvalon.Rounds
                 g.CurrentRound.Status = RoundStatus.MissionSuccess;
                 g.PointsInnocent++;
             }
-            await _gameRepository.UpdateAsync(g);
+            GameStore.AddOrUpdateGame(g);
             await _gameHub.Clients.Group(g.Id.ToString()).SendAsync("UpdateAll");
         }
         public async Task SubmitTeam(GameAndPlayerIdDto model)
         {
-            // TODO - Handle team size. Throw error if incorrect team size
-            Game g = await _gameRepository.GetAll()
-                                        .Include("CurrentRound")
-                                        .FirstOrDefaultAsync(game => game.Id == model.GameId);
-            var round = await _roundRepository.GetAsync(g.CurrentRound.Id);
-            round.Status = RoundStatus.VotingForTeam;
-            await _roundRepository.UpdateAsync(round);
+            Game g = GameStore.GetGame(model.GameId);
+            g.CurrentRound.Status = RoundStatus.VotingForTeam;
+            GameStore.AddOrUpdateGame(g);
             await _gameHub.Clients.Group(model.GameId.ToString()).SendAsync("UpdateAll");
         }
         public HowManyPlayerHelper HowManyPlayers(int RoundNmr, int TotalPlayers)
