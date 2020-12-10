@@ -32,7 +32,7 @@ jobs:
     - name: Deploy Entity Framework Migrations
       uses: benday-inc/deploy-ef-core-migration@main
       with: 
-        path_to_directory: './dotnetcorewebapp'
+        path_to_directory: '${{ github.workspace }}/dotnetcorewebapp'
         migrations_dll: 'MultiplayerAvalon.EntityFrameworkCore.dll'
         migrations_namespace: 'MultiplayerAvalon.EntityFrameworkCore'
         startup_dll: 'MultiplayerAvalon.Web.Host.dll'
